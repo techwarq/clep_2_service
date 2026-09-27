@@ -1,0 +1,317 @@
+{
+  "id": "ClepLaunch",
+  "project": "clep",
+  "fps": 60,
+  "duration": 48,
+  "vo": [
+    {
+      "file": "vo_00_ca873b2c7a.mp3",
+      "start": 0.6,
+      "text": "You shipped the feature."
+    },
+    {
+      "file": "vo_01_944332ff88.mp3",
+      "start": 2.6,
+      "text": "But the demo? Still on your to-do list."
+    },
+    {
+      "file": "vo_02_46eef0bdba.mp3",
+      "start": 5.6,
+      "text": "Because every demo is the same grind. Record. Retake. Zoom. Crop. Export."
+    },
+    {
+      "file": "vo_03_a351436c61.mp3",
+      "start": 12.5,
+      "text": "And the moment your UI changes, you do it all again."
+    },
+    {
+      "file": "vo_04_c7b5e85ae9.mp3",
+      "start": 16.5,
+      "text": "But your code already knows what your feature does."
+    },
+    {
+      "file": "vo_05_ffc24947ec.mp3",
+      "start": 21.0,
+      "text": "Meet clep. Product demos, straight from your code."
+    },
+    {
+      "file": "vo_06_4abd998dc5.mp3",
+      "start": 25.4,
+      "text": "Just ask Claude Code."
+    },
+    {
+      "file": "vo_07_665ad9a0a7.mp3",
+      "start": 29.2,
+      "text": "Clep finds the feature, runs it in a real browser, and directs every click."
+    },
+    {
+      "file": "vo_08_bc5f2487aa.mp3",
+      "start": 35.4,
+      "text": "What comes back is a finished film. Edited, graded, 1080p."
+    },
+    {
+      "file": "vo_09_77f1398cb3.mp3",
+      "start": 41.2,
+      "text": "Build it. Clep it. Share it."
+    }
+  ],
+  "beats": {
+    "record": 8.14,
+    "retake": 8.96,
+    "zoom": 9.87,
+    "crop": 10.67,
+    "export": 11.59,
+    "uiChanges": 12.6,
+    "allAgain": 14.0,
+    "edited": 37.8,
+    "graded": 38.82,
+    "hd": 39.28,
+    "build": 41.2,
+    "clepIt": 42.28,
+    "shareIt": 43.19
+  },
+  "sfx": [
+    {
+      "kind": "pop",
+      "t": 0.35,
+      "gain": 0.5
+    },
+    {
+      "kind": "click",
+      "t": 1.45,
+      "gain": 0.9
+    },
+    {
+      "kind": "tick",
+      "t": 1.5,
+      "gain": 0.5
+    },
+    {
+      "kind": "swish",
+      "t": 2.5,
+      "gain": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 3.0,
+      "gain": 0.5
+    },
+    {
+      "kind": "tick",
+      "t": 3.3,
+      "gain": 0.6
+    },
+    {
+      "kind": "tick",
+      "t": 3.55,
+      "gain": 0.6
+    },
+    {
+      "kind": "swish",
+      "t": 5.2,
+      "gain": 0.8
+    },
+    {
+      "kind": "pop",
+      "t": 5.8,
+      "gain": 0.4
+    },
+    {
+      "kind": "pop",
+      "t": 8.14,
+      "gain": 0.8
+    },
+    {
+      "kind": "pop",
+      "t": 8.96,
+      "gain": 0.8
+    },
+    {
+      "kind": "pop",
+      "t": 9.87,
+      "gain": 0.8
+    },
+    {
+      "kind": "pop",
+      "t": 10.67,
+      "gain": 0.8
+    },
+    {
+      "kind": "pop",
+      "t": 11.59,
+      "gain": 0.8
+    },
+    {
+      "kind": "swish",
+      "t": 12.35,
+      "gain": 0.6
+    },
+    {
+      "kind": "click",
+      "t": 13.05,
+      "gain": 0.6
+    },
+    {
+      "kind": "pop",
+      "t": 13.5,
+      "gain": 0.9
+    },
+    {
+      "kind": "swish",
+      "t": 14.0,
+      "gain": 0.6
+    },
+    {
+      "kind": "swish",
+      "t": 16.0,
+      "gain": 0.8
+    },
+    {
+      "kind": "tick",
+      "t": 18.7,
+      "gain": 0.6
+    },
+    {
+      "kind": "swish",
+      "t": 20.6,
+      "gain": 0.7
+    },
+    {
+      "kind": "pop",
+      "t": 21.0,
+      "gain": 0.9
+    },
+    {
+      "kind": "pop",
+      "t": 23.2,
+      "gain": 0.4
+    },
+    {
+      "kind": "swish",
+      "t": 25.1,
+      "gain": 0.5
+    },
+    {
+      "kind": "keys",
+      "t": 25.9,
+      "gain": 0.55,
+      "dur": 1.7
+    },
+    {
+      "kind": "tick",
+      "t": 26.3,
+      "gain": 0.5
+    },
+    {
+      "kind": "click",
+      "t": 28.05,
+      "gain": 0.9
+    },
+    {
+      "kind": "send",
+      "t": 28.1,
+      "gain": 0.7
+    },
+    {
+      "kind": "tick",
+      "t": 30.2,
+      "gain": 0.6
+    },
+    {
+      "kind": "swish",
+      "t": 31.0,
+      "gain": 0.5
+    },
+    {
+      "kind": "click",
+      "t": 31.95,
+      "gain": 0.8
+    },
+    {
+      "kind": "keys",
+      "t": 32.05,
+      "gain": 0.45,
+      "dur": 0.8
+    },
+    {
+      "kind": "tick",
+      "t": 31.8,
+      "gain": 0.6
+    },
+    {
+      "kind": "click",
+      "t": 33.25,
+      "gain": 0.9
+    },
+    {
+      "kind": "pop",
+      "t": 33.9,
+      "gain": 0.4
+    },
+    {
+      "kind": "pop",
+      "t": 34.1,
+      "gain": 0.4
+    },
+    {
+      "kind": "pop",
+      "t": 34.3,
+      "gain": 0.4
+    },
+    {
+      "kind": "tick",
+      "t": 33.7,
+      "gain": 0.6
+    },
+    {
+      "kind": "swish",
+      "t": 35.0,
+      "gain": 0.7
+    },
+    {
+      "kind": "pop",
+      "t": 37.8,
+      "gain": 0.7
+    },
+    {
+      "kind": "pop",
+      "t": 38.82,
+      "gain": 0.7
+    },
+    {
+      "kind": "pop",
+      "t": 39.28,
+      "gain": 0.9
+    },
+    {
+      "kind": "swish",
+      "t": 39.9,
+      "gain": 0.7
+    },
+    {
+      "kind": "swish",
+      "t": 41.0,
+      "gain": 0.5
+    },
+    {
+      "kind": "pop",
+      "t": 42.28,
+      "gain": 0.6
+    },
+    {
+      "kind": "pop",
+      "t": 43.19,
+      "gain": 0.6
+    },
+    {
+      "kind": "pop",
+      "t": 44.0,
+      "gain": 0.6
+    },
+    {
+      "kind": "click",
+      "t": 45.6,
+      "gain": 0.9
+    }
+  ]
+}

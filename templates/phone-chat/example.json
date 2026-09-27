@@ -1,0 +1,71 @@
+{
+  "brand": {
+    "name": "Skyla",
+    "colors": {
+      "background": "#FFF6EE",
+      "foreground": "#1C130D",
+      "primary": "#FF6B2C",
+      "primaryForeground": "#FFFFFF"
+    },
+    "mode": "light",
+    "radius": 22
+  },
+  "controls": {},
+  "values": {
+    "hook": "Your trip, handled over text.",
+    "hookAccent": "over text.",
+    "problemLines": [
+      "Flight moved.",
+      "Hotel full."
+    ],
+    "notifications": [
+      {
+        "app": "Airline",
+        "title": "Your flight is delayed 3h",
+        "icon": "plane"
+      },
+      {
+        "app": "Hotel",
+        "title": "Room no longer available",
+        "icon": "bed"
+      },
+      {
+        "app": "Calendar",
+        "title": "Dinner at 8 \u2014 conflict",
+        "icon": "calendar"
+      }
+    ],
+    "chatCaption": [
+      "Just text Skyla."
+    ],
+    "messages": [
+      {
+        "from": "user",
+        "text": "My flight got delayed, fix my evening?"
+      },
+      {
+        "from": "agent",
+        "text": "On it \u2014 rebooked you and moved dinner."
+      }
+    ],
+    "results": [
+      "New flight \u00b7 lands 6:40pm",
+      "Hotel upgraded, same price",
+      "Dinner moved to 9:15"
+    ],
+    "approveItems": [
+      {
+        "name": "Flight 1432 · SFO → JFK",
+        "meta": "Seat 4A \u00b7 no change fee"
+      },
+      {
+        "name": "Hotel on Rivington · 1 night",
+        "meta": "Upgrade included"
+      }
+    ],
+    "approveTotal": "$0",
+    "endHeadline": "Travel, handled.",
+    "cta": "Text Skyla",
+    "ctaUrl": "skyla.travel"
+  }
+}

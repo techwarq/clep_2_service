@@ -1,0 +1,63 @@
+{
+  "brand": {
+    "name": "Tracewise",
+    "colors": {
+      "background": "#0B0B10",
+      "foreground": "#EDEDF2",
+      "primary": "#7C5CFF",
+      "accent": "#A78BFA"
+    },
+    "mode": "dark",
+    "radius": 14
+  },
+  "controls": {},
+  "values": {
+    "hook": "Research that runs itself.",
+    "hookAccent": "runs itself.",
+    "prompt": "Find seed-stage climate startups hiring ML engineers",
+    "status": "Reading 1,240 pages\u2026",
+    "tableTitle": "",
+    "columns": [
+      "Company",
+      "Signal",
+      "Stage"
+    ],
+    "rows": [
+      [
+        "Verdant Grid",
+        "3 ML roles open",
+        "Seed \u00b7 $4M"
+      ],
+      [
+        "Carbonfold",
+        "Hiring Head of AI",
+        "Seed \u00b7 $6M"
+      ],
+      [
+        "Tidewise",
+        "2 ML roles open",
+        "Pre-seed"
+      ],
+      [
+        "Soilsense",
+        "Research lead",
+        "Seed \u00b7 $3M"
+      ],
+      [
+        "Hydrolux",
+        "ML infra role",
+        "Seed \u00b7 $5M"
+      ],
+      [
+        "Ampere Labs",
+        "4 ML roles open",
+        "Seed \u00b7 $8M"
+      ]
+    ],
+    "statValue": "47",
+    "statLabel": "companies found in 3 minutes",
+    "endHeadline": "Ask once. Get the list.",
+    "cta": "Try Tracewise",
+    "ctaUrl": "tracewise.ai"
+  }
+}

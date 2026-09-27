@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "title": "Engine demo",
+  "format": { "width": 1920, "height": 1080, "fps": 30 },
+  "style": "clean-saas",
+  "brand": {
+    "name": "Clep",
+    "url": "https://clep.dev",
+    "colors": { "background": "#FAFAF9", "foreground": "#0B0B0C", "primary": "#4F46E5" },
+    "fonts": { "display": { "family": "Inter" }, "body": { "family": "Inter" } }
+  },
+  "scenes": [
+    { "type": "kinetic_title", "duration": 2.6, "props": { "eyebrow": "Introducing Clep", "title": "Product videos\nthat edit themselves.", "accent": "edit themselves." } },
+    { "type": "word_flash", "duration": 2.2, "props": { "words": ["Record.", "Zoom.", "Cut.", "Caption."], "final": "Automatically.", "accent": "Automatically." }, "transition": { "type": "cut" } },
+    { "type": "statement", "duration": 3, "props": { "lines": ["No timeline.", "No keyframes.", "Just ship."], "accent": "Just ship." } },
+    { "type": "list_reveal", "duration": 3, "props": { "title": "Built for launch day", "items": ["Real UI, real cursor", "Brand-matched motion", "4K in minutes"], "emphasis": 1 } },
+    { "type": "quote", "duration": 3.4, "props": { "quote": "Our launch video took an afternoon instead of a week.", "author": "Sam Lee", "role": "Founder, Acme" } }
+  ]
+}

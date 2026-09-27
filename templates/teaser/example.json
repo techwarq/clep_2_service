@@ -1,0 +1,31 @@
+{
+  "brand": {
+    "name": "Prismo",
+    "colors": {
+      "background": "#F4F4F2",
+      "foreground": "#0A0A0A",
+      "primary": "#FF4F1F",
+      "primaryForeground": "#0A0A0A"
+    },
+    "mode": "light"
+  },
+  "controls": {},
+  "values": {
+    "flashWords": [
+      "Faster.",
+      "Lighter.",
+      "Sharper."
+    ],
+    "flashFinal": "Everything is new.",
+    "flashAccent": "new.",
+    "lines": [
+      "We rebuilt Prismo.",
+      "From the first pixel.",
+      "For you."
+    ],
+    "linesAccent": "For you.",
+    "date": "October 14",
+    "announce": "Prismo 2",
+    "tagline": "Join the waitlist \u00b7 prismo.app"
+  }
+}

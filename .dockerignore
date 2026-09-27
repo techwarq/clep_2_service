@@ -1,0 +1,9 @@
+projects/
+legacy/
+engine/node_modules/
+engine/out/
+engine/build/
+**/.DS_Store
+**/__pycache__/
+templates/*/example.mp4
+.env

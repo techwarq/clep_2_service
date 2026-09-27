@@ -1,0 +1,26 @@
+{
+  "id": "teaser",
+  "name": "Teaser",
+  "tagline": "Kinetic type on the beat — the announcement before anyone sees the UI.",
+  "bestFor": "Coming-soon posts, launch-day openers, version drops, waitlists",
+  "references": ["Cube Motion", "Nebula", "North 2", "Inco Splash"],
+  "defaults": { "style": "kinetic-bold", "fontPairing": "poster", "backdrop": "flat", "pace": "snappy", "textAnim": "slam", "transition": "cut", "camera": "dynamic", "format": "16:9" },
+  "slots": {
+    "flashWords":  { "label": "Beat words", "type": "textList", "maxItems": 6, "max": 14, "default": ["Faster.", "Smaller.", "Sharper."] },
+    "flashFinal":  { "label": "Line after the beats", "type": "text", "max": 30, "default": "Everything changed." },
+    "flashAccent": { "label": "Highlighted words", "type": "text", "max": 20, "default": "changed." },
+    "lines":       { "label": "Build-up lines", "type": "textList", "maxItems": 3, "max": 30, "default": ["We rebuilt it.", "From scratch.", "For you."] },
+    "linesAccent": { "label": "Highlighted words", "type": "text", "max": 20, "default": "For you." },
+    "date":        { "label": "Date / badge", "type": "text", "max": 24, "default": "October 14" },
+    "announce":    { "label": "Announcement", "type": "text", "max": 28, "default": "Version 2" },
+    "tagline":     { "label": "Tagline under the logo", "type": "text", "max": 44, "default": "Join the waitlist" }
+  },
+  "spec": {
+    "scenes": [
+      { "id": "beats", "type": "word_flash", "duration": 2.4, "props": { "words": "{{flashWords}}", "final": "{{flashFinal}}", "accent": "{{flashAccent}}" }, "tone": "inverse", "transition": { "type": "cut" } },
+      { "id": "build", "type": "statement", "duration": 2.6, "props": { "lines": "{{lines}}", "accent": "{{linesAccent}}" }, "transition": { "type": "flash", "duration": 0.3 } },
+      { "id": "announce", "type": "kinetic_title", "duration": 2.4, "props": { "eyebrow": "{{date}}", "title": "{{announce}}" }, "tone": "primary", "camera": { "move": "punch_in", "amount": 0.08 }, "transition": { "type": "cut" } },
+      { "id": "logo", "type": "logo_reveal", "duration": 2.6, "props": { "tagline": "{{tagline}}", "variant": "wipe" }, "tone": "inverse" }
+    ]
+  }
+}

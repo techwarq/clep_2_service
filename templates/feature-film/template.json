@@ -1,0 +1,28 @@
+{
+  "id": "feature-film",
+  "name": "Feature Film",
+  "tagline": "Your real product, floating on a gradient — the camera follows every click.",
+  "bestFor": "SaaS feature launches, changelog drops, 'how it works' clips",
+  "references": ["OpenMuse", "Keep", "Framer Skills", "Worker Previews", "TasteCode"],
+  "defaults": { "style": "clean-saas", "fontPairing": "geist", "backdrop": "pastel", "pace": "normal", "textAnim": "mask", "transition": "blur", "camera": "normal", "format": "16:9" },
+  "slots": {
+    "eyebrow":       { "label": "Eyebrow", "type": "text", "max": 28, "default": "New" },
+    "hook":          { "label": "Headline", "type": "text", "max": 48, "default": "Ship the demo\nwith the feature." },
+    "hookAccent":    { "label": "Highlighted words", "type": "text", "max": 24, "default": "with the feature." },
+    "clip":          { "label": "Product capture (Clep recording + trace.json)", "type": "clip" },
+    "url":           { "label": "Address bar", "type": "text", "max": 40, "default": "app.yourproduct.com" },
+    "benefitsTitle": { "label": "Benefits title", "type": "text", "max": 32, "default": "What you get" },
+    "benefits":      { "label": "Benefits", "type": "textList", "maxItems": 4, "max": 28, "default": ["Real UI, real cursor", "Auto zoom on every click", "1080p60 MP4"] },
+    "endHeadline":   { "label": "Closing line", "type": "text", "max": 44, "default": "Try it today." },
+    "cta":           { "label": "Button", "type": "text", "max": 22, "default": "Get started" },
+    "ctaUrl":        { "label": "URL", "type": "text", "max": 40, "default": "yourproduct.com" }
+  },
+  "spec": {
+    "scenes": [
+      { "id": "hook", "type": "kinetic_title", "duration": 2.6, "props": { "eyebrow": "{{eyebrow}}", "title": "{{hook}}", "accent": "{{hookAccent}}" }, "transition": { "type": "blur", "duration": 0.5 } },
+      { "id": "product", "type": "clip_showcase", "duration": "{{clip.duration}}", "props": { "src": "{{clip.src}}", "focuses": "{{clip.focuses}}", "url": "{{url}}", "frame": "browser", "zoom": 1.6 }, "transition": { "type": "blur", "duration": 0.5 } },
+      { "id": "benefits", "type": "list_reveal", "duration": 3, "props": { "title": "{{benefitsTitle}}", "items": "{{benefits}}", "marker": "check", "emphasis": 1 } },
+      { "id": "end", "type": "end_card", "duration": 3.2, "props": { "headline": "{{endHeadline}}", "cta": "{{cta}}", "url": "{{ctaUrl}}" } }
+    ]
+  }
+}

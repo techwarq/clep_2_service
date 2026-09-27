@@ -1,0 +1,31 @@
+{
+  "id": "agent-run",
+  "name": "Agent Run",
+  "tagline": "A prompt types itself, the agent works the list live, the number lands.",
+  "bestFor": "AI agents, search, enrichment, automation, anything that 'does the work'",
+  "references": ["Monid", "Framer Agent", "Motion MCP", "Perplexity Computer", "Astra"],
+  "defaults": { "style": "neon-tech", "fontPairing": "geist", "backdrop": "dots", "pace": "normal", "textAnim": "scramble", "transition": "whip", "camera": "normal", "format": "16:9" },
+  "slots": {
+    "hook":        { "label": "Hook", "type": "text", "max": 40, "default": "Stop doing it by hand." },
+    "hookAccent":  { "label": "Highlighted words", "type": "text", "max": 20, "default": "by hand." },
+    "prompt":      { "label": "Prompt the user types", "type": "text", "max": 60, "default": "Find 50 fintech startups hiring engineers" },
+    "status":      { "label": "Working status", "type": "text", "max": 36, "default": "Searching 1,200 sources…" },
+    "tableTitle":  { "label": "Results title", "type": "text", "max": 36, "default": "" },
+    "columns":     { "label": "Columns", "type": "textList", "maxItems": 4, "max": 14, "default": ["Company", "Signal", "Contact"] },
+    "rows":        { "label": "Rows", "type": "table", "maxItems": 7, "default": [["Acme", "Hiring 12", "jo@acme.com"], ["Globex", "Series B", "cto@globex.io"]] },
+    "statValue":   { "label": "Big number", "type": "text", "max": 10, "default": "50/50" },
+    "statLabel":   { "label": "Number label", "type": "text", "max": 32, "default": "done while you slept" },
+    "endHeadline": { "label": "Closing line", "type": "text", "max": 44, "default": "Give it the list." },
+    "cta":         { "label": "Button", "type": "text", "max": 22, "default": "Try it free" },
+    "ctaUrl":      { "label": "URL", "type": "text", "max": 40, "default": "yourproduct.ai" }
+  },
+  "spec": {
+    "scenes": [
+      { "id": "hook", "type": "kinetic_title", "duration": 2.2, "props": { "title": "{{hook}}", "accent": "{{hookAccent}}" }, "transition": { "type": "whip", "duration": 0.35 } },
+      { "id": "prompt", "type": "search_results", "duration": 3.4, "props": { "query": "{{prompt}}", "status": "{{status}}", "icon": "sparkles", "results": [] }, "transition": { "type": "zoom", "duration": 0.4 } },
+      { "id": "work", "type": "table_fill", "duration": 5.2, "props": { "title": "{{tableTitle}}", "columns": "{{columns}}", "rows": "{{rows}}" }, "camera": { "move": "push_in", "amount": 0.05 }, "transition": { "type": "cut" } },
+      { "id": "proof", "type": "stat_counter", "duration": 2.6, "props": { "stats": [{ "value": "{{statValue}}", "label": "{{statLabel}}" }] }, "tone": "primary", "camera": { "move": "punch_in" }, "transition": { "type": "whip", "duration": 0.35 } },
+      { "id": "end", "type": "end_card", "duration": 3.2, "props": { "headline": "{{endHeadline}}", "cta": "{{cta}}", "url": "{{ctaUrl}}" } }
+    ]
+  }
+}

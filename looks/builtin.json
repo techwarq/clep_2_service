@@ -1,0 +1,639 @@
+[
+  {
+    "name": "anime",
+    "label": "Anime",
+    "aliases": [
+      "anime",
+      "manga",
+      "shonen",
+      "shounen",
+      "japanese animation",
+      "otaku",
+      "ghibli",
+      "studio trigger",
+      "anime opening",
+      "cel shaded"
+    ],
+    "description": "Anime opening energy: speed-line backdrops, impact-frame cuts, slammed outlined type with hard shadows, halftone print, sparkles, punch-ins with shake.",
+    "base": "anime",
+    "paletteMode": "tint",
+    "palette": {
+      "background": "#fff6e0",
+      "foreground": "#111111",
+      "primary": "#ff2e4d",
+      "accent": "#1f6bff"
+    },
+    "mode": "light",
+    "fonts": {
+      "display": "Dela Gothic One",
+      "body": "M PLUS Rounded 1c"
+    },
+    "background": {
+      "kind": "speedlines"
+    },
+    "overlays": [
+      "halftone",
+      "sparkles"
+    ],
+    "textEffect": "outline-shadow",
+    "transition": {
+      "type": "slash",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "punch_in",
+      "amount": 0.08,
+      "shake": 3
+    },
+    "textAnim": "slam",
+    "uppercase": true,
+    "pace": "snappy",
+    "transitions": [
+      "slash",
+      "impact",
+      "whip",
+      "zoom"
+    ]
+  },
+  {
+    "name": "comic-book",
+    "label": "Comic book",
+    "aliases": [
+      "comic",
+      "comic book",
+      "comics",
+      "pop art",
+      "marvel",
+      "superhero",
+      "graphic novel",
+      "lichtenstein"
+    ],
+    "description": "Pop-art comic: halftone dots, sunburst panels, bold outlined caps, flash cuts.",
+    "base": "kinetic-bold",
+    "paletteMode": "tint",
+    "palette": {
+      "background": "#fff3b0",
+      "foreground": "#111111",
+      "primary": "#e63946",
+      "accent": "#1d4ed8"
+    },
+    "mode": "light",
+    "fonts": {
+      "display": "Bangers",
+      "body": "Comic Neue"
+    },
+    "background": {
+      "kind": "sunburst"
+    },
+    "overlays": [
+      "halftone"
+    ],
+    "textEffect": "outline-shadow",
+    "transition": {
+      "type": "impact",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "punch_in",
+      "amount": 0.07,
+      "shake": 2
+    },
+    "textAnim": "slam",
+    "uppercase": true,
+    "pace": "snappy",
+    "transitions": [
+      "impact",
+      "strips",
+      "slash",
+      "whip"
+    ]
+  },
+  {
+    "name": "retro-vhs",
+    "label": "Retro VHS",
+    "aliases": [
+      "vhs",
+      "retro",
+      "80s",
+      "eighties",
+      "90s",
+      "nineties",
+      "tape",
+      "camcorder",
+      "analog",
+      "lofi",
+      "lo-fi",
+      "old tv",
+      "crt"
+    ],
+    "description": "Worn tape: scanlines, tracking band, RGB fringe, grain, glowing type.",
+    "base": "neon-tech",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#120a1f",
+      "foreground": "#f5e9ff",
+      "primary": "#ff4fd8",
+      "accent": "#3ff2ff"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "VT323",
+      "body": "IBM Plex Mono"
+    },
+    "background": {
+      "kind": "noise"
+    },
+    "overlays": [
+      "vhs",
+      "vignette"
+    ],
+    "textEffect": "glow",
+    "transition": {
+      "type": "glitch",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "drift",
+      "amount": 0.03,
+      "shake": 1
+    },
+    "textAnim": "scramble",
+    "uppercase": true,
+    "pace": "normal",
+    "transitions": [
+      "glitch",
+      "leak",
+      "dip"
+    ]
+  },
+  {
+    "name": "cyberpunk",
+    "label": "Cyberpunk",
+    "aliases": [
+      "cyberpunk",
+      "cyber punk",
+      "blade runner",
+      "neon noir",
+      "futuristic",
+      "sci-fi",
+      "scifi",
+      "hacker",
+      "matrix",
+      "synthwave"
+    ],
+    "description": "Neon city at night: dark grid, glowing magenta/cyan type, scanlines, whip cuts.",
+    "base": "neon-tech",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#07060d",
+      "foreground": "#e8f7ff",
+      "primary": "#00f0ff",
+      "accent": "#ff2bd6"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Orbitron",
+      "body": "Rajdhani"
+    },
+    "background": {
+      "kind": "grid"
+    },
+    "overlays": [
+      "scanlines",
+      "vignette"
+    ],
+    "textEffect": "glow",
+    "transition": {
+      "type": "glitch",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "push_in",
+      "amount": 0.06,
+      "shake": 1
+    },
+    "textAnim": "scramble",
+    "uppercase": true,
+    "pace": "snappy",
+    "transitions": [
+      "glitch",
+      "whip",
+      "zoom",
+      "slash"
+    ]
+  },
+  {
+    "name": "vaporwave",
+    "label": "Vaporwave",
+    "aliases": [
+      "vaporwave",
+      "vapor wave",
+      "outrun",
+      "miami",
+      "retrowave"
+    ],
+    "description": "Pastel sunset gradients, chrome type, sparkles, slow dreamy pushes.",
+    "base": "soft-brand",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#2b1055",
+      "foreground": "#ffffff",
+      "primary": "#ff71ce",
+      "accent": "#01cdfe"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Monoton",
+      "body": "Space Mono"
+    },
+    "background": {
+      "kind": "gradient",
+      "colors": [
+        "#2b1055",
+        "#7597de",
+        "#ff71ce"
+      ]
+    },
+    "overlays": [
+      "sparkles",
+      "scanlines"
+    ],
+    "textEffect": "chrome",
+    "transition": {
+      "type": "leak",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "drift",
+      "amount": 0.03
+    },
+    "textAnim": "words",
+    "uppercase": true,
+    "pace": "calm",
+    "transitions": [
+      "leak",
+      "blur",
+      "circle"
+    ]
+  },
+  {
+    "name": "y2k",
+    "label": "Y2K",
+    "aliases": [
+      "y2k",
+      "2000s",
+      "early internet",
+      "millennium",
+      "bubbly",
+      "frutiger aero"
+    ],
+    "description": "Glossy early-2000s: chrome type, bright aurora gradients, sparkles, zoom cuts.",
+    "base": "soft-brand",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#e9f3ff",
+      "foreground": "#0b1f4d",
+      "primary": "#2f6bff",
+      "accent": "#ff5fd2"
+    },
+    "mode": "light",
+    "fonts": {
+      "display": "Rubik Mono One",
+      "body": "Nunito"
+    },
+    "background": {
+      "kind": "aurora"
+    },
+    "overlays": [
+      "sparkles"
+    ],
+    "textEffect": "chrome",
+    "transition": {
+      "type": "zoom",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "push_in",
+      "amount": 0.05
+    },
+    "textAnim": "chars",
+    "uppercase": true,
+    "pace": "normal",
+    "transitions": [
+      "zoom",
+      "circle",
+      "strips",
+      "leak"
+    ]
+  },
+  {
+    "name": "film-noir",
+    "label": "Film noir",
+    "aliases": [
+      "noir",
+      "film noir",
+      "black and white",
+      "b&w",
+      "detective",
+      "old movie",
+      "hitchcock",
+      "classic film"
+    ],
+    "description": "Black-and-white cinema: letterbox, heavy grain, vignette, serif titles, slow fades.",
+    "base": "dark-keynote",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#0c0c0c",
+      "foreground": "#f2f2f2",
+      "primary": "#d9d9d9",
+      "accent": "#8c8c8c"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Playfair Display",
+      "body": "Libre Baskerville"
+    },
+    "background": {
+      "kind": "spotlight"
+    },
+    "overlays": [
+      "letterbox",
+      "grain",
+      "vignette"
+    ],
+    "textEffect": "none",
+    "transition": {
+      "type": "dip",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "push_in",
+      "amount": 0.04
+    },
+    "textAnim": "words",
+    "uppercase": false,
+    "pace": "calm",
+    "transitions": [
+      "dip",
+      "blur",
+      "cut"
+    ]
+  },
+  {
+    "name": "cinematic",
+    "label": "Cinematic trailer",
+    "aliases": [
+      "cinematic",
+      "movie trailer",
+      "trailer",
+      "hollywood",
+      "blockbuster",
+      "a24"
+    ],
+    "description": "Movie-trailer gravitas: letterbox, dark spotlight, big quiet titles, slow push-ins.",
+    "base": "dark-keynote",
+    "paletteMode": "tint",
+    "palette": {
+      "background": "#050505",
+      "foreground": "#f4f1ea",
+      "primary": "#c9a86a",
+      "accent": "#e8d9b0"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Cinzel",
+      "body": "Inter"
+    },
+    "background": {
+      "kind": "spotlight"
+    },
+    "overlays": [
+      "letterbox",
+      "grain",
+      "vignette"
+    ],
+    "textEffect": "none",
+    "transition": {
+      "type": "blur",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "push_in",
+      "amount": 0.05
+    },
+    "textAnim": "blur",
+    "uppercase": true,
+    "pace": "calm",
+    "transitions": [
+      "blur",
+      "dip",
+      "zoom",
+      "leak"
+    ]
+  },
+  {
+    "name": "hand-drawn",
+    "label": "Hand-drawn",
+    "aliases": [
+      "hand drawn",
+      "hand-drawn",
+      "sketch",
+      "doodle",
+      "whiteboard",
+      "notebook",
+      "handwritten",
+      "scribble",
+      "crayon"
+    ],
+    "description": "Sketchbook: paper texture, marker-style type, gentle wobble, hard cuts.",
+    "base": "editorial-paper",
+    "paletteMode": "tint",
+    "palette": {
+      "background": "#fbf7ee",
+      "foreground": "#1f1b16",
+      "primary": "#e4572e",
+      "accent": "#2b59c3"
+    },
+    "mode": "light",
+    "fonts": {
+      "display": "Caveat Brush",
+      "body": "Patrick Hand"
+    },
+    "background": {
+      "kind": "paper"
+    },
+    "overlays": [
+      "paper"
+    ],
+    "textEffect": "none",
+    "transition": {
+      "type": "push",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "drift",
+      "amount": 0.02,
+      "shake": 1
+    },
+    "textAnim": "words",
+    "uppercase": false,
+    "pace": "normal",
+    "transitions": [
+      "push",
+      "cut",
+      "circle"
+    ]
+  },
+  {
+    "name": "luxury",
+    "label": "Luxury",
+    "aliases": [
+      "luxury",
+      "premium",
+      "elegant",
+      "fashion",
+      "high end",
+      "high-end",
+      "vogue",
+      "gold",
+      "classy"
+    ],
+    "description": "Quiet luxury: deep background, gold serif titles, generous space, slow blur dissolves.",
+    "base": "dark-keynote",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#0e0d0b",
+      "foreground": "#f3eee4",
+      "primary": "#c8a45c",
+      "accent": "#e9d7a8"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Cormorant Garamond",
+      "body": "Jost"
+    },
+    "background": {
+      "kind": "spotlight"
+    },
+    "overlays": [
+      "vignette"
+    ],
+    "textEffect": "gradient",
+    "transition": {
+      "type": "blur",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "push_in",
+      "amount": 0.03
+    },
+    "textAnim": "blur",
+    "uppercase": true,
+    "pace": "calm",
+    "transitions": [
+      "blur",
+      "leak",
+      "dip"
+    ]
+  },
+  {
+    "name": "brutalist",
+    "label": "Brutalist",
+    "aliases": [
+      "brutalist",
+      "brutalism",
+      "swiss",
+      "bold type",
+      "grid poster",
+      "neo brutalism"
+    ],
+    "description": "Raw poster type: flat blocks, huge caps, hard cuts, no polish.",
+    "base": "kinetic-bold",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#f2f2f2",
+      "foreground": "#000000",
+      "primary": "#ff3d00",
+      "accent": "#0038ff"
+    },
+    "mode": "light",
+    "fonts": {
+      "display": "Archivo Black",
+      "body": "Space Grotesk"
+    },
+    "background": {
+      "kind": "flat"
+    },
+    "overlays": [],
+    "textEffect": "offset-shadow",
+    "transition": {
+      "type": "cut",
+      "duration": 0
+    },
+    "camera": {
+      "move": "none"
+    },
+    "textAnim": "slam",
+    "uppercase": true,
+    "pace": "snappy",
+    "transitions": [
+      "cut",
+      "strips",
+      "whip",
+      "slash"
+    ]
+  },
+  {
+    "name": "pixel",
+    "label": "Pixel / 8-bit",
+    "aliases": [
+      "pixel",
+      "8-bit",
+      "8 bit",
+      "16-bit",
+      "retro game",
+      "arcade",
+      "video game",
+      "gameboy",
+      "nintendo",
+      "minecraft"
+    ],
+    "description": "Arcade: pixel type, dark dot grid, scanlines, flash cuts, blinky energy.",
+    "base": "neon-tech",
+    "paletteMode": "look",
+    "palette": {
+      "background": "#0f0f23",
+      "foreground": "#f8f8f2",
+      "primary": "#50fa7b",
+      "accent": "#ffb86c"
+    },
+    "mode": "dark",
+    "fonts": {
+      "display": "Press Start 2P",
+      "body": "VT323"
+    },
+    "background": {
+      "kind": "dots"
+    },
+    "overlays": [
+      "scanlines"
+    ],
+    "textEffect": "offset-shadow",
+    "transition": {
+      "type": "glitch",
+      "duration": 0.45
+    },
+    "camera": {
+      "move": "punch_in",
+      "amount": 0.05
+    },
+    "textAnim": "chars",
+    "uppercase": true,
+    "pace": "snappy",
+    "transitions": [
+      "glitch",
+      "strips",
+      "cut"
+    ]
+  }
+]

@@ -1,0 +1,3176 @@
+{
+  "generatedAt": "2026-09-27T06:26:08.327Z",
+  "scenes": [
+    {
+      "type": "kinetic_title",
+      "category": "typography",
+      "description": "Big headline with the style's signature text animation (mask/words/chars/slam/scramble/blur), optional eyebrow pill and subtitle. The workhorse hook/section title.",
+      "duration": [
+        1.8,
+        4
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Headline. Use \\n for a deliberate line break. ≤ 8 words lands best."
+          },
+          "accent": {
+            "description": "Exact substring of title to color in the brand primary.",
+            "type": "string"
+          },
+          "eyebrow": {
+            "description": "Small pill/label above the title.",
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "anim": {
+            "description": "Override the style's title animation.",
+            "type": "string",
+            "enum": [
+              "mask",
+              "words",
+              "chars",
+              "slam",
+              "scramble",
+              "blur",
+              "stream",
+              "pullout",
+              "build"
+            ]
+          },
+          "align": {
+            "default": "center",
+            "type": "string",
+            "enum": [
+              "center",
+              "left"
+            ]
+          },
+          "exit": {
+            "default": false,
+            "description": "Animate text out before the cut.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "example": {
+        "title": "Ship demos\nwithout editing.",
+        "accent": "without editing.",
+        "eyebrow": "New"
+      }
+    },
+    {
+      "type": "word_flash",
+      "category": "typography",
+      "description": "Rapid hard-cut word flashes on the beat (strobing ink/background), landing on a held final line. High-energy hooks and lists.",
+      "duration": [
+        1.5,
+        3.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "words": {
+            "minItems": 2,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Short words/phrases hard-cut one after another (on the beat)."
+          },
+          "final": {
+            "description": "Held last line after the flashes.",
+            "type": "string"
+          },
+          "accent": {
+            "description": "Substring of `final` to color.",
+            "type": "string"
+          },
+          "invertEvery": {
+            "default": true,
+            "description": "Alternate background/ink on each flash for strobe energy.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "words"
+        ]
+      },
+      "example": {
+        "words": [
+          "Record.",
+          "Edit.",
+          "Zoom.",
+          "Export."
+        ],
+        "final": "Done in one click.",
+        "accent": "one click."
+      }
+    },
+    {
+      "type": "statement",
+      "category": "typography",
+      "description": "1-4 lines rising from masks in sequence, earlier lines dimming — an argument building line by line. Great for problem→solution.",
+      "duration": [
+        2.5,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "lines": {
+            "minItems": 1,
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lines revealed in sequence; earlier lines dim as new ones land."
+          },
+          "accent": {
+            "description": "Substring (in any line) to color.",
+            "type": "string"
+          },
+          "dimPrevious": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "lines"
+        ]
+      },
+      "example": {
+        "lines": [
+          "You don't need another tool.",
+          "You need the work done."
+        ],
+        "accent": "work done."
+      }
+    },
+    {
+      "type": "list_reveal",
+      "category": "typography",
+      "description": "Title + 2-6 items punching in with check/arrow/number markers, one optionally emphasized. Features, steps, benefits.",
+      "duration": [
+        2.5,
+        4.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "items": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "marker": {
+            "default": "check",
+            "type": "string",
+            "enum": [
+              "check",
+              "arrow",
+              "number",
+              "none"
+            ]
+          },
+          "emphasis": {
+            "description": "0-based item index to highlight in brand color.",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "example": {
+        "title": "What you get",
+        "items": [
+          "Auto zoom",
+          "Smooth cursor",
+          "4K export"
+        ],
+        "emphasis": 1
+      }
+    },
+    {
+      "type": "quote",
+      "category": "typography",
+      "description": "Testimonial: big quote mark, quote words fade in, author + role (+ avatar) below.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [
+        "avatar"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "avatar": {
+            "description": "Asset path to a headshot.",
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "quote",
+          "author"
+        ]
+      },
+      "example": {
+        "quote": "We cut our launch video time from a week to an afternoon.",
+        "author": "Alex Rivera",
+        "role": "Head of Growth"
+      }
+    },
+    {
+      "type": "site_showcase",
+      "category": "product",
+      "description": "The brand's REAL website/product screenshot in a browser window: 3D tilt-up entrance, slow scroll, optional push-in on a point (zoom), cursor click, and callout labels. Optional title switches to text-left layout. Use whenever real screenshots exist — real UI beats invented UI.",
+      "duration": [
+        3,
+        6
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [
+        "screenshot"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "screenshot": {
+            "type": "string",
+            "description": "Asset path to a real screenshot of the site/product (full-page screenshots scroll)."
+          },
+          "url": {
+            "description": "Shown in the address bar.",
+            "type": "string"
+          },
+          "title": {
+            "description": "Optional caption; switches to a two-column layout with text left.",
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          },
+          "scroll": {
+            "default": 0.25,
+            "description": "Fraction of the page to scroll through during the scene.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "scrollStart": {
+            "default": 0.8,
+            "description": "Seconds before scrolling begins.",
+            "type": "number"
+          },
+          "device": {
+            "default": "browser",
+            "type": "string",
+            "enum": [
+              "browser",
+              "none"
+            ]
+          },
+          "tilt": {
+            "default": true,
+            "description": "3D tilt-up entrance.",
+            "type": "boolean"
+          },
+          "zoom": {
+            "description": "Push in on a point of the visible viewport (x,y fractions) — e.g. the main CTA button.",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "scale": {
+                "default": 1.8,
+                "type": "number"
+              },
+              "at": {
+                "default": 1.4,
+                "type": "number"
+              },
+              "duration": {
+                "default": 0.9,
+                "description": "Seconds the push-in takes — raise it to slow the zoom (0.7x speed = duration / 0.7).",
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "click": {
+            "description": "Cursor flies in and clicks at x,y (viewport fractions).",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "at": {
+                "default": 1.2,
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "callouts": {
+            "default": [],
+            "description": "Labels that pop next to points on the viewport.",
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "at": {
+                  "default": 1,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "text",
+                "x",
+                "y"
+              ]
+            }
+          }
+        },
+        "required": [
+          "screenshot"
+        ]
+      },
+      "example": {
+        "screenshot": "shots/home.png",
+        "url": "clep.dev",
+        "scroll": 0.3,
+        "zoom": {
+          "x": 0.5,
+          "y": 0.45,
+          "scale": 1.6,
+          "at": 1.6
+        },
+        "callouts": [
+          {
+            "text": "One-click export",
+            "x": 0.62,
+            "y": 0.4,
+            "at": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "ui_click",
+      "category": "product",
+      "description": "Built app mock (sidebar, heading, big primary button) — cursor flies in, clicks, spinner → check, success toast pops. Optional particle assembly intro. Use for the 'one click and it's done' moment when no screenshot exists.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "heading": {
+            "type": "string",
+            "description": "Heading inside the app UI (what the user is doing)."
+          },
+          "button": {
+            "type": "string",
+            "description": "Primary button label that gets clicked."
+          },
+          "result": {
+            "default": "Done",
+            "description": "Toast shown after the click.",
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "tag": {
+            "description": "Small chip above the heading.",
+            "type": "string"
+          },
+          "particles": {
+            "default": false,
+            "description": "Window assembles from particles first (dev-tool vibe).",
+            "type": "boolean"
+          },
+          "clickAt": {
+            "default": 0.55,
+            "description": "Fraction of the scene when the click lands.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "heading",
+          "button"
+        ]
+      },
+      "example": {
+        "heading": "Turn this flow into a video",
+        "button": "Generate clip",
+        "result": "Clip ready — 0:28",
+        "tag": "Signup flow"
+      }
+    },
+    {
+      "type": "feature_grid",
+      "category": "product",
+      "description": "2-6 feature cards (lucide icon, title, short desc) rise in a staggered grid; optional card spotlight at the end.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "features": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "default": "sparkles",
+                  "description": "lucide icon name",
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          },
+          "highlight": {
+            "description": "0-based card to spotlight at the end.",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "features"
+        ]
+      },
+      "example": {
+        "title": "Everything in one pass",
+        "features": [
+          {
+            "icon": "mouse-pointer-click",
+            "title": "Real cursor",
+            "desc": "Recorded, then smoothed"
+          },
+          {
+            "icon": "zoom-in",
+            "title": "Auto zoom",
+            "desc": "Follows every click"
+          },
+          {
+            "icon": "film",
+            "title": "4K export",
+            "desc": "MP4, GIF, WebM"
+          }
+        ],
+        "highlight": 1
+      }
+    },
+    {
+      "type": "search_results",
+      "category": "product",
+      "description": "Prompt/search bar types a query, shimmering status line, then result cards drop in. AI search, agents, 'ask anything' products.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Typed into the search/prompt bar (≤ 50 chars)."
+          },
+          "status": {
+            "description": "Shimmering status line after enter, e.g. 'Searching the web…'",
+            "type": "string"
+          },
+          "results": {
+            "default": [],
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "meta": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          },
+          "icon": {
+            "default": "search",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "example": {
+        "query": "What changed in our signup flow?",
+        "status": "Reading 4 pages…",
+        "results": [
+          {
+            "title": "Signup v2 shipped",
+            "source": "GitHub",
+            "meta": "2h ago"
+          },
+          {
+            "title": "Conversion up 18%",
+            "source": "Analytics"
+          }
+        ]
+      }
+    },
+    {
+      "type": "chat_demo",
+      "category": "product",
+      "description": "Chat thread: user bubbles, agent typing indicator then reply, then result cards slide up. Optional phone frame and caption column.",
+      "duration": [
+        3.5,
+        6
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "messages": {
+            "minItems": 1,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "enum": [
+                    "user",
+                    "agent"
+                  ]
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "from",
+                "text"
+              ]
+            }
+          },
+          "agentName": {
+            "description": "Defaults to the brand name.",
+            "type": "string"
+          },
+          "results": {
+            "default": [],
+            "description": "Task-result cards that slide up after the agent replies.",
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "device": {
+            "default": "none",
+            "type": "string",
+            "enum": [
+              "none",
+              "phone"
+            ]
+          },
+          "caption": {
+            "default": [],
+            "description": "Lines typed on the left (two-column layout).",
+            "maxItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "messages"
+        ]
+      },
+      "example": {
+        "messages": [
+          {
+            "from": "user",
+            "text": "Make a 30s launch clip of onboarding"
+          },
+          {
+            "from": "agent",
+            "text": "On it — recording now."
+          }
+        ],
+        "results": [
+          "Recorded 6 steps",
+          "Zoomed on 3 clicks",
+          "Exported 1080p"
+        ],
+        "caption": [
+          "Just ask."
+        ]
+      }
+    },
+    {
+      "type": "notification_stack",
+      "category": "product",
+      "description": "Notification cards stack in with a nervous jitter, then swipe away together ('problem → solved'). Optional phone lock screen + caption column.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "notifications": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "app": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "logo": {
+                  "description": "The app's real logo (resolved by the director) — shown instead of the icon.",
+                  "type": "object",
+                  "properties": {
+                    "src": {
+                      "type": "string",
+                      "description": "Project asset path, e.g. apps/slack.svg"
+                    },
+                    "mode": {
+                      "default": "color",
+                      "description": "color = full-color mark on a light tile; glyph = one-color glyph on its brand-color tile",
+                      "type": "string",
+                      "enum": [
+                        "color",
+                        "glyph"
+                      ]
+                    },
+                    "color": {
+                      "description": "Brand hex for glyph tiles.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "src"
+                  ]
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          },
+          "caption": {
+            "default": [],
+            "maxItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "device": {
+            "default": "none",
+            "type": "string",
+            "enum": [
+              "none",
+              "phone"
+            ]
+          },
+          "peel": {
+            "default": true,
+            "description": "Swipe them all away at the end (the 'problem solved' beat).",
+            "type": "boolean"
+          },
+          "variant": {
+            "default": "cards",
+            "description": "cards = stacked cards · scatter = toasts pile up everywhere, camera pulls back · thread = a team channel scrolling · ticker = one message at a time, full-frame · lockscreen = phone with a big clock",
+            "type": "string",
+            "enum": [
+              "cards",
+              "scatter",
+              "thread",
+              "ticker",
+              "lockscreen"
+            ]
+          }
+        },
+        "required": [
+          "notifications"
+        ]
+      },
+      "example": {
+        "caption": [
+          "Too many tools.",
+          "Too many tabs."
+        ],
+        "notifications": [
+          {
+            "app": "Slack",
+            "title": "Can you record the demo?",
+            "icon": "message-square"
+          },
+          {
+            "app": "Loom",
+            "title": "Recording failed",
+            "icon": "video-off"
+          },
+          {
+            "app": "Calendar",
+            "title": "Launch in 2 hours",
+            "icon": "calendar"
+          }
+        ]
+      }
+    },
+    {
+      "type": "approval_card",
+      "category": "product",
+      "description": "Checkout/permission card with line items + total, floating brand badge 'waiting for approval', cursor clicks Approve → turns green. Agentic 'you stay in control' beat.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "badge": {
+            "default": "Waiting for your approval",
+            "type": "string"
+          },
+          "items": {
+            "minItems": 1,
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "meta": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          },
+          "totalLabel": {
+            "default": "Total",
+            "type": "string"
+          },
+          "total": {
+            "type": "string"
+          },
+          "approve": {
+            "default": "Approve",
+            "type": "string"
+          },
+          "deny": {
+            "default": "Deny",
+            "type": "string"
+          },
+          "clickApprove": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "example": {
+        "items": [
+          {
+            "name": "Pro plan",
+            "meta": "Annual"
+          },
+          {
+            "name": "2 extra seats"
+          }
+        ],
+        "total": "$240",
+        "approve": "Allow"
+      }
+    },
+    {
+      "type": "phone_showcase",
+      "category": "product",
+      "description": "Phone rises in beside a caption column; shows a real app screenshot scrolling (or a branded splash). Mobile products.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [
+        "screenshot"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "screenshot": {
+            "description": "Asset path to an app screenshot (tall images scroll). Omit for a branded splash.",
+            "type": "string"
+          },
+          "caption": {
+            "default": [],
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scroll": {
+            "default": 0.3,
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "side": {
+            "default": "right",
+            "type": "string",
+            "enum": [
+              "right",
+              "left"
+            ]
+          }
+        }
+      },
+      "example": {
+        "caption": [
+          "Your whole day,",
+          "handled."
+        ]
+      }
+    },
+    {
+      "type": "video_showcase",
+      "category": "product",
+      "description": "Real footage in a floating window that springs up to size (camera pushes through), optional browser chrome, optional ending mosaic of stills.",
+      "duration": [
+        3,
+        7
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [
+        "src",
+        "mosaic"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "description": "Asset path to real footage (screen recording, product clip)."
+          },
+          "startFrom": {
+            "default": 0,
+            "description": "Seconds into the clip to start.",
+            "type": "number"
+          },
+          "frame": {
+            "default": "window",
+            "type": "string",
+            "enum": [
+              "window",
+              "browser",
+              "full"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "mosaic": {
+            "default": [],
+            "description": "Still images for an ending mosaic wall (optional).",
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "src"
+        ]
+      },
+      "example": {
+        "src": "footage/demo.mp4",
+        "frame": "browser",
+        "url": "app.clep.dev"
+      }
+    },
+    {
+      "type": "terminal_type",
+      "category": "dev",
+      "description": "Terminal window (or full-bleed) typing commands with a blinking block caret; '>'-prefixed lines print as output (green if success). Optional brand-color flash out. CLIs, SDKs, deploys.",
+      "duration": [
+        2.5,
+        5
+      ],
+      "defaultTone": "inverse",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "lines": {
+            "minItems": 1,
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Commands to type. Prefix a line with '>' to print it instantly as output (e.g. '> ✓ Deployed in 1.2s')."
+          },
+          "prompt": {
+            "default": "$",
+            "type": "string"
+          },
+          "title": {
+            "default": "zsh",
+            "type": "string"
+          },
+          "flash": {
+            "default": false,
+            "description": "Flash to brand color at the end (hard-cut driver).",
+            "type": "boolean"
+          },
+          "window": {
+            "default": true,
+            "description": "Framed window vs. full-bleed black screen.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "lines"
+        ]
+      },
+      "example": {
+        "lines": [
+          "npx clep record --flow signup",
+          "> ✓ Captured 6 steps",
+          "> ✓ Rendered 1080p in 14s"
+        ]
+      }
+    },
+    {
+      "type": "code_zoom",
+      "category": "dev",
+      "description": "Syntax-highlighted editor; camera drifts in on one highlighted line while others dim; optional snippet that explodes full-screen at the end. Show the 3 lines of code it takes.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "inverse",
+      "ownCamera": true,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "lines": {
+            "minItems": 3,
+            "maxItems": 18,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Real-looking code (the brand's SDK/API usage)."
+          },
+          "highlight": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "1-based line to spotlight."
+          },
+          "title": {
+            "default": "index.tsx",
+            "type": "string"
+          },
+          "blowup": {
+            "description": "Short snippet that explodes to full-screen at the end (fake-3D zoom).",
+            "type": "string"
+          },
+          "typing": {
+            "default": false,
+            "description": "Type the code in instead of showing it.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "lines",
+          "highlight"
+        ]
+      },
+      "example": {
+        "lines": [
+          "import { Clep } from \"@clep/sdk\"",
+          "",
+          "const clep = new Clep()",
+          "await clep.record(\"signup\")",
+          "await clep.export({ format: \"mp4\" })"
+        ],
+        "highlight": 4,
+        "blowup": "clep.record(\"signup\")"
+      }
+    },
+    {
+      "type": "stat_counter",
+      "category": "data",
+      "description": "1-3 huge numbers counting up to their targets (keeps $/%/x/commas formatting) with labels. Proof points. Looks great with tone 'primary'.",
+      "duration": [
+        2.5,
+        4
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "stats": {
+            "minItems": 1,
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "description": "Target as displayed: '98%', '$0', '10x', '1,000+'"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value",
+                "label"
+              ]
+            }
+          }
+        },
+        "required": [
+          "stats"
+        ]
+      },
+      "example": {
+        "stats": [
+          {
+            "value": "10x",
+            "label": "faster launches"
+          },
+          {
+            "value": "98%",
+            "label": "less editing"
+          }
+        ]
+      }
+    },
+    {
+      "type": "progress_ring",
+      "category": "data",
+      "description": "Ring fills while the percentage jumps in kinetic steps, then snaps to a check + 'Done'. Processing / rendering / deploying beats.",
+      "duration": [
+        2.5,
+        4
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "label": {
+            "default": "Rendering",
+            "type": "string"
+          },
+          "done": {
+            "default": "Done",
+            "type": "string"
+          },
+          "stepped": {
+            "default": true,
+            "description": "Percent jumps in kinetic steps instead of counting smoothly.",
+            "type": "boolean"
+          }
+        }
+      },
+      "example": {
+        "label": "Rendering 4K",
+        "done": "Ready"
+      }
+    },
+    {
+      "type": "bar_chart",
+      "category": "data",
+      "description": "Animated bar chart (horizontal or vertical) with one highlighted bar — benchmarks, us vs. them.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "bars": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                },
+                "display": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ]
+            }
+          },
+          "highlight": {
+            "description": "0-based bar in brand color (usually 'us').",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "unit": {
+            "default": "",
+            "type": "string"
+          },
+          "orientation": {
+            "default": "horizontal",
+            "type": "string",
+            "enum": [
+              "vertical",
+              "horizontal"
+            ]
+          }
+        },
+        "required": [
+          "bars"
+        ]
+      },
+      "example": {
+        "title": "Time to first video",
+        "bars": [
+          {
+            "label": "Screen Studio",
+            "value": 45,
+            "display": "45 min"
+          },
+          {
+            "label": "Manual edit",
+            "value": 180,
+            "display": "3 hrs"
+          },
+          {
+            "label": "Clep",
+            "value": 2,
+            "display": "2 min"
+          }
+        ],
+        "highlight": 2
+      }
+    },
+    {
+      "type": "split_compare",
+      "category": "data",
+      "description": "Split screen: old way (slow list that glitches/strikes away) vs. new way (fast checked list in brand color).",
+      "duration": [
+        3.5,
+        5.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 5,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "items"
+            ],
+            "description": "The old/slow way."
+          },
+          "right": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 5,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "items"
+            ],
+            "description": "The new way (this product)."
+          },
+          "collapseLeft": {
+            "default": true,
+            "description": "Old way glitches away near the end.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "left",
+          "right"
+        ]
+      },
+      "example": {
+        "left": {
+          "title": "Before",
+          "items": [
+            "Record",
+            "Import",
+            "Cut",
+            "Zoom",
+            "Export"
+          ]
+        },
+        "right": {
+          "title": "With Clep",
+          "items": [
+            "Tag the flow",
+            "Done"
+          ]
+        }
+      }
+    },
+    {
+      "type": "flow_diagram",
+      "category": "data",
+      "description": "2-5 nodes connected by lines that draw on (GSAP DrawSVG) with a glowing pulse travelling the chain. How-it-works / architecture.",
+      "duration": [
+        3,
+        5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "nodes": {
+            "minItems": 2,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "sub": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label"
+              ]
+            }
+          },
+          "caption": {
+            "type": "string"
+          },
+          "highlight": {
+            "description": "0-based node drawn in brand color (usually the product).",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "nodes"
+        ]
+      },
+      "example": {
+        "nodes": [
+          {
+            "label": "Your app",
+            "icon": "app-window"
+          },
+          {
+            "label": "Clep",
+            "icon": "sparkles",
+            "sub": "records + edits"
+          },
+          {
+            "label": "MP4",
+            "icon": "film"
+          }
+        ],
+        "highlight": 1,
+        "caption": "Three steps. Zero editing."
+      }
+    },
+    {
+      "type": "card_scatter",
+      "category": "story",
+      "description": "Cards burst out from center one by one with a camera flash and settle scattered around the frame — 'captures', 'moments', 'everything it grabbed'.",
+      "duration": [
+        2.5,
+        4.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [
+        "cards"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "cards": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label"
+              ]
+            }
+          },
+          "title": {
+            "description": "Centered text the cards burst out from.",
+            "type": "string"
+          },
+          "flash": {
+            "default": true,
+            "description": "Camera-flash on each capture.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "cards"
+        ]
+      },
+      "example": {
+        "cards": [
+          {
+            "label": "Sign up",
+            "icon": "user-plus"
+          },
+          {
+            "label": "Verify email",
+            "icon": "mail-check"
+          },
+          {
+            "label": "Dashboard",
+            "icon": "layout-dashboard"
+          },
+          {
+            "label": "Invite team",
+            "icon": "users"
+          }
+        ]
+      }
+    },
+    {
+      "type": "timeline_assemble",
+      "category": "story",
+      "description": "Scattered cards slam onto an editing timeline; a playhead sweeps and auto-edit tags pop as it crosses. 'It edits itself.' Pairs with card_scatter.",
+      "duration": [
+        3.5,
+        5.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "clips": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Clip labels (reuse the preceding card_scatter labels for continuity)."
+          },
+          "tags": {
+            "default": [
+              "zoom",
+              "cut",
+              "focus",
+              "cursor"
+            ],
+            "description": "Auto-edit tags that pop as the playhead crosses.",
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "clips"
+        ]
+      },
+      "example": {
+        "clips": [
+          "Sign up",
+          "Verify email",
+          "Dashboard",
+          "Invite team"
+        ],
+        "tags": [
+          "zoom",
+          "cut",
+          "focus",
+          "cursor"
+        ]
+      }
+    },
+    {
+      "type": "logo_wall",
+      "category": "story",
+      "description": "Social proof: 1-3 rows of customer logos/wordmarks drifting in opposite directions under a 'Trusted by' line.",
+      "duration": [
+        2.5,
+        4
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [
+        "logos"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "default": "Trusted by teams at",
+            "type": "string"
+          },
+          "logos": {
+            "minItems": 3,
+            "maxItems": 16,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Company names (rendered as wordmarks) or asset paths to logo images."
+          },
+          "rows": {
+            "default": 2,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "logos"
+        ]
+      },
+      "example": {
+        "logos": [
+          "Vercel",
+          "Linear",
+          "Raycast",
+          "Supabase",
+          "Resend",
+          "Cursor"
+        ]
+      }
+    },
+    {
+      "type": "logo_reveal",
+      "category": "brand",
+      "description": "Brand lockup reveal choreographed in GSAP (cross→mark, scale-blur pop, or bar wipe) using the real logo if available, then the tagline. Openers and closers.",
+      "duration": [
+        2.2,
+        4
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "tagline": {
+            "type": "string"
+          },
+          "variant": {
+            "default": "cross",
+            "description": "cross: lines draw a cross that resolves into the mark; scale: mark pops; wipe: logo wipes on behind a bar.",
+            "type": "string",
+            "enum": [
+              "cross",
+              "scale",
+              "wipe"
+            ]
+          }
+        }
+      },
+      "example": {
+        "tagline": "Product videos that edit themselves.",
+        "variant": "cross"
+      }
+    },
+    {
+      "type": "end_card",
+      "category": "brand",
+      "description": "Closing card: logo, final headline, CTA button with a light sweep, URL, then fade out. Always the last scene.",
+      "duration": [
+        2.5,
+        4.5
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "headline": {
+            "description": "Final line above the CTA.",
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          },
+          "cta": {
+            "description": "Button label, e.g. 'Start free'.",
+            "type": "string"
+          },
+          "url": {
+            "description": "Shown under the button, e.g. 'clep.dev'.",
+            "type": "string"
+          },
+          "fadeOut": {
+            "default": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "example": {
+        "headline": "Ship the video with the feature.",
+        "cta": "Try Clep free",
+        "url": "clep.dev"
+      }
+    },
+    {
+      "type": "clip_showcase",
+      "category": "product",
+      "description": "A RAW Clep product capture in a floating browser window over the backdrop. The camera follows the trace.json focus points automatically — pushes in on each action, pans between them, pulls back at the end — with click ripples and label callouts. The Floating-window launch look.",
+      "duration": [
+        4,
+        14
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [
+        "src"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "description": "RAW product capture (Clep recording) — not an already-zoomed edit."
+          },
+          "startFrom": {
+            "default": 0,
+            "type": "number"
+          },
+          "focuses": {
+            "default": [],
+            "description": "From Clep trace.json → the camera follows these.",
+            "maxItems": 12,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "t": {
+                  "type": "number",
+                  "description": "Seconds into the clip (after startFrom)."
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "zoom": {
+                  "description": "Override push-in for this beat.",
+                  "type": "number"
+                },
+                "label": {
+                  "description": "Callout pill shown at this point.",
+                  "type": "string"
+                },
+                "click": {
+                  "default": false,
+                  "description": "Draw a click ripple.",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "t",
+                "x",
+                "y"
+              ]
+            }
+          },
+          "zoom": {
+            "default": 1.55,
+            "description": "Default push-in on each focus (1 = no zoom).",
+            "type": "number"
+          },
+          "frame": {
+            "default": "browser",
+            "type": "string",
+            "enum": [
+              "browser",
+              "window",
+              "none"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "width": {
+            "default": 0.8,
+            "description": "Window width as a fraction of the frame at zoom 1.",
+            "type": "number",
+            "minimum": 0.4,
+            "maximum": 1
+          },
+          "tilt": {
+            "default": true,
+            "description": "3D tilt-up entrance.",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "Lower-left caption over the backdrop.",
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "src"
+        ]
+      },
+      "example": {
+        "src": "clips/capture.webm",
+        "focuses": [
+          {
+            "t": 1.2,
+            "x": 0.5,
+            "y": 0.4,
+            "label": "Paste your doc",
+            "click": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "table_fill",
+      "category": "product",
+      "description": "An agent working through a list: table rows appear one by one, cells type in over shimmering placeholders, status goes working → done, with a live 'N / M done' counter. Agents, enrichment, batch jobs.",
+      "duration": [
+        3.5,
+        6
+      ],
+      "defaultTone": "base",
+      "ownCamera": false,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "columns": {
+            "minItems": 2,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rows": {
+            "minItems": 2,
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Cell values per row (same length as columns)."
+          },
+          "status": {
+            "description": "Final status per row (default all done).",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "done",
+                "working",
+                "flagged"
+              ]
+            }
+          },
+          "counterLabel": {
+            "default": "done",
+            "description": "Header counter: '6 / 8 done'.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "columns",
+          "rows"
+        ]
+      },
+      "example": {
+        "title": "It works the list for you",
+        "columns": [
+          "Company",
+          "Founder",
+          "Funding"
+        ],
+        "rows": [
+          [
+            "Linear",
+            "Karri Saarinen",
+            "$82M"
+          ],
+          [
+            "Raycast",
+            "Thomas Paul Mann",
+            "$45M"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "film_reel",
+      "category": "product",
+      "description": "Carousel of finished videos gliding past (Replit style): each settles at center full size and playing, neighbours smaller and dimmer. Use to show many outputs — 'every brand gets its own film'.",
+      "duration": [
+        4,
+        12
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [
+        "films"
+      ],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "films": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "src": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "start": {
+                  "default": 0,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "src"
+              ]
+            },
+            "description": "Finished videos (asset paths) that slide past, each playing."
+          },
+          "caption": {
+            "description": "One line under the reel, ≤ 44 chars.",
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "films"
+        ]
+      },
+      "example": {
+        "films": [
+          {
+            "src": "user/a.mp4",
+            "title": "Talo"
+          },
+          {
+            "src": "user/b.mp4",
+            "title": "Linear"
+          }
+        ],
+        "caption": "Every brand, its own film."
+      }
+    },
+    {
+      "type": "agent_trace",
+      "category": "product",
+      "description": "The product doing the work, filmed like a founder launch: the user's request types into an input bar, then the agent's findings stream in one per line in big type (value + ▲/▼ in the accent), the camera following each new line, older lines dimming. Optionally everything collapses into one huge payoff line. Use for AI agents, analytics, research, automation — any 'ask → it investigates → answer' story.",
+      "duration": [
+        5,
+        14
+      ],
+      "defaultTone": "base",
+      "ownCamera": true,
+      "assetProps": [],
+      "props": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "What the user types, lowercase and plain, ≤ 80 chars."
+          },
+          "steps": {
+            "minItems": 2,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "What the agent found, ≤ 48 chars: 'Amazon fees'"
+                },
+                "value": {
+                  "description": "The finding's number, ≤ 16 chars: '+27%', '$6,210'",
+                  "type": "string"
+                },
+                "dir": {
+                  "default": "none",
+                  "description": "Arrow next to the value.",
+                  "type": "string",
+                  "enum": [
+                    "up",
+                    "down",
+                    "none"
+                  ]
+                },
+                "logo": {
+                  "description": "Logo of the tool this finding came from (Shopify, Amazon…).",
+                  "type": "object",
+                  "properties": {
+                    "src": {
+                      "type": "string",
+                      "description": "Project asset path, e.g. apps/slack.svg"
+                    },
+                    "mode": {
+                      "default": "color",
+                      "description": "color = full-color mark on a light tile; glyph = one-color glyph on its brand-color tile",
+                      "type": "string",
+                      "enum": [
+                        "color",
+                        "glyph"
+                      ]
+                    },
+                    "color": {
+                      "description": "Brand hex for glyph tiles.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "src"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "description": "The investigation, one finding per step."
+          },
+          "result": {
+            "description": "The payoff the steps collapse into, ≤ 40 chars: 'Profit −19%. $12,430.'",
+            "type": "string"
+          },
+          "resultAccent": {
+            "description": "Exact substring of result to color.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Working label under the prompt, ≤ 32 chars. Defaults to 'Investigating'.",
+            "type": "string"
+          },
+          "variant": {
+            "default": "rows",
+            "description": "rows = input bar + streaming rows · terminal = mono log · sheet = spreadsheet filling, camera pushes in · nodes = source logos wired to the agent · document = memo writing itself · cards = one big finding card at a time",
+            "type": "string",
+            "enum": [
+              "rows",
+              "terminal",
+              "sheet",
+              "nodes",
+              "document",
+              "cards"
+            ]
+          }
+        },
+        "required": [
+          "prompt",
+          "steps"
+        ]
+      },
+      "example": {
+        "prompt": "why did churn go up in march?",
+        "steps": [
+          {
+            "text": "Signups",
+            "value": "flat",
+            "dir": "none"
+          },
+          {
+            "text": "Onboarding drop-off",
+            "value": "31%",
+            "dir": "up"
+          },
+          {
+            "text": "Bug reports, one screen",
+            "value": "×84",
+            "dir": "up"
+          },
+          {
+            "text": "All on Android",
+            "dir": "none"
+          }
+        ],
+        "result": "One broken screen.",
+        "resultAccent": "broken screen."
+      }
+    }
+  ],
+  "styles": {
+    "clean-saas": {
+      "label": "Clean SaaS launch",
+      "description": "Bright, precise, product-first. Subtle grid, soft shadows, real UI in focus. Smooth push-ins, blur/fade transitions, expo easing, word-by-word mask reveals.",
+      "references": [
+        "Linear launch videos",
+        "Vercel Ship",
+        "Raycast",
+        "Notion feature drops"
+      ],
+      "background": {
+        "kind": "grid"
+      },
+      "transition": {
+        "type": "blur",
+        "duration": 0.45
+      },
+      "camera": {
+        "move": "push_in",
+        "amount": 0.05
+      },
+      "ease": "expo",
+      "titleAnim": "mask",
+      "uppercase": false,
+      "tracking": -0.035,
+      "weight": 700,
+      "typeScale": 1,
+      "sceneSeconds": [
+        2.2,
+        4.5
+      ],
+      "grain": 0,
+      "stagger": 0.06,
+      "transitionSet": [
+        "zoom",
+        "push",
+        "blur",
+        "strips"
+      ]
+    },
+    "dark-keynote": {
+      "label": "Dark keynote",
+      "description": "Apple-event cinematic. Near-black with a soft spotlight, huge tight type, slow elegant camera drifts, long blur dissolves, generous holds.",
+      "references": [
+        "Apple product films",
+        "OpenAI launch films",
+        "Arc browser"
+      ],
+      "mode": "dark",
+      "background": {
+        "kind": "spotlight"
+      },
+      "transition": {
+        "type": "blur",
+        "duration": 0.7
+      },
+      "camera": {
+        "move": "push_in",
+        "amount": 0.07,
+        "ease": "smooth"
+      },
+      "ease": "smooth",
+      "titleAnim": "blur",
+      "uppercase": false,
+      "tracking": -0.045,
+      "weight": 600,
+      "typeScale": 1.15,
+      "sceneSeconds": [
+        3,
+        5.5
+      ],
+      "grain": 0.04,
+      "stagger": 0.09,
+      "transitionSet": [
+        "blur",
+        "zoom",
+        "dip"
+      ]
+    },
+    "kinetic-bold": {
+      "label": "Kinetic bold",
+      "description": "High-energy social cut. Hard cuts and whip pans on the beat, slammed uppercase type, rapid word flashes, punch-in zooms, flat high-contrast color blocks.",
+      "references": [
+        "Figma Config promos",
+        "Nike-style kinetic type",
+        "YC launch reels",
+        "Gumroad"
+      ],
+      "background": {
+        "kind": "flat"
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      },
+      "camera": {
+        "move": "punch_in",
+        "amount": 0.06
+      },
+      "ease": "snappy",
+      "titleAnim": "slam",
+      "uppercase": true,
+      "tracking": -0.02,
+      "weight": 800,
+      "typeScale": 1.2,
+      "sceneSeconds": [
+        1.2,
+        3
+      ],
+      "grain": 0,
+      "stagger": 0.035,
+      "transitionSet": [
+        "whip",
+        "slash",
+        "strips",
+        "glitch"
+      ]
+    },
+    "editorial-paper": {
+      "label": "Editorial paper",
+      "description": "Magazine / whiteboard explainer. Warm paper grain, big serif display type, ink-black and one rust accent, hard cuts, minimal camera.",
+      "references": [
+        "Stripe Press",
+        "The Browser Company explainers",
+        "Every.to"
+      ],
+      "mode": "light",
+      "background": {
+        "kind": "paper"
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      },
+      "camera": {
+        "move": "drift",
+        "amount": 0.02
+      },
+      "ease": "out",
+      "titleAnim": "words",
+      "uppercase": false,
+      "tracking": -0.02,
+      "weight": 600,
+      "typeScale": 1.05,
+      "sceneSeconds": [
+        2.5,
+        4.5
+      ],
+      "grain": 0.08,
+      "stagger": 0.07,
+      "transitionSet": [
+        "push",
+        "dip",
+        "cut"
+      ]
+    },
+    "neon-tech": {
+      "label": "Neon dev-tool",
+      "description": "Dark terminal aesthetic for dev tools and AI infra. Dot grid, glowing accent, mono labels, scramble text, whip transitions, code and terminal scenes.",
+      "references": [
+        "Supabase Launch Week",
+        "Warp",
+        "Cursor",
+        "Resend"
+      ],
+      "mode": "dark",
+      "background": {
+        "kind": "dots"
+      },
+      "transition": {
+        "type": "whip",
+        "duration": 0.35
+      },
+      "camera": {
+        "move": "push_in",
+        "amount": 0.06
+      },
+      "ease": "expo",
+      "titleAnim": "scramble",
+      "uppercase": false,
+      "tracking": -0.03,
+      "weight": 700,
+      "typeScale": 1,
+      "sceneSeconds": [
+        1.8,
+        3.8
+      ],
+      "grain": 0.03,
+      "stagger": 0.04,
+      "transitionSet": [
+        "glitch",
+        "whip",
+        "zoom"
+      ]
+    },
+    "soft-brand": {
+      "label": "Soft consumer brand",
+      "description": "Friendly consumer-app look. Airy gradient with blurred blobs, rounded cards, springy pop-ins, gray chat/notification bubbles, gentle zooms.",
+      "references": [
+        "Meta Muse site",
+        "Headspace",
+        "Duolingo",
+        "iOS feature videos"
+      ],
+      "mode": "light",
+      "background": {
+        "kind": "blobs"
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 0.4
+      },
+      "camera": {
+        "move": "push_in",
+        "amount": 0.04
+      },
+      "ease": "overshoot",
+      "titleAnim": "words",
+      "uppercase": false,
+      "tracking": -0.025,
+      "weight": 800,
+      "typeScale": 1,
+      "sceneSeconds": [
+        2.5,
+        4.5
+      ],
+      "grain": 0,
+      "stagger": 0.07,
+      "transitionSet": [
+        "push",
+        "circle",
+        "blur"
+      ]
+    },
+    "story-film": {
+      "label": "Story film",
+      "description": "Founder-launch film. Flat brand-colored ground, no gradients or blobs. Text is the narrator: big type, words arriving one at a time, accent words underlined by a hand-drawn stroke. The product works in long, slowly pushing shots. Hard cuts and pushes, no dissolves.",
+      "references": [
+        "T:0 launch",
+        "Listen Labs $100M",
+        "Aside browser",
+        "Wonder",
+        "Browserbase"
+      ],
+      "background": {
+        "kind": "flat"
+      },
+      "transition": {
+        "type": "cut",
+        "duration": 0
+      },
+      "camera": {
+        "move": "push_in",
+        "amount": 0.035,
+        "ease": "smooth"
+      },
+      "ease": "expo",
+      "titleAnim": "stream",
+      "uppercase": false,
+      "tracking": -0.035,
+      "weight": 600,
+      "typeScale": 1.1,
+      "sceneSeconds": [
+        3,
+        7
+      ],
+      "grain": 0,
+      "stagger": 0.16,
+      "transitionSet": [
+        "cut",
+        "morph",
+        "push",
+        "zoom"
+      ],
+      "accentMark": true
+    },
+    "anime": {
+      "label": "Anime",
+      "description": "Anime opening / manga panel energy. Speed-line backdrops, impact-frame cuts, slammed outlined type with hard offset shadows, halftone print texture, sparkles, punch-ins with shake.",
+      "references": [
+        "anime OP title cards",
+        "shonen manga panels",
+        "Studio Trigger trailers"
+      ],
+      "mode": "light",
+      "background": {
+        "kind": "speedlines"
+      },
+      "transition": {
+        "type": "impact",
+        "duration": 0.35
+      },
+      "camera": {
+        "move": "punch_in",
+        "amount": 0.08,
+        "shake": 3
+      },
+      "ease": "snappy",
+      "titleAnim": "slam",
+      "uppercase": true,
+      "tracking": -0.01,
+      "weight": 900,
+      "typeScale": 1.15,
+      "sceneSeconds": [
+        1.2,
+        2.8
+      ],
+      "grain": 0,
+      "stagger": 0.03,
+      "overlays": [
+        "halftone",
+        "sparkles"
+      ],
+      "textEffect": "outline-shadow",
+      "fontWidth": 1.35,
+      "transitionSet": [
+        "slash",
+        "impact",
+        "whip",
+        "zoom"
+      ]
+    }
+  },
+  "eases": [
+    "linear",
+    "easy",
+    "out",
+    "in",
+    "inOut",
+    "expo",
+    "expoInOut",
+    "snappy",
+    "cut",
+    "reveal",
+    "smooth",
+    "overshoot",
+    "anticipate"
+  ],
+  "transitions": [
+    "cut",
+    "fade",
+    "blur",
+    "slide",
+    "push",
+    "wipe",
+    "whip",
+    "zoom",
+    "flash",
+    "flip",
+    "iris",
+    "clock",
+    "impact",
+    "strips",
+    "slash",
+    "glitch",
+    "leak",
+    "dip",
+    "circle",
+    "morph"
+  ],
+  "cameraMoves": [
+    "none",
+    "push_in",
+    "pull_out",
+    "drift",
+    "pan_left",
+    "pan_right",
+    "tilt_up",
+    "tilt_down",
+    "punch_in",
+    "dutch"
+  ],
+  "backgrounds": [
+    "flat",
+    "gradient",
+    "blobs",
+    "grid",
+    "dots",
+    "spotlight",
+    "paper",
+    "aurora",
+    "noise",
+    "image",
+    "mesh",
+    "speedlines",
+    "sunburst",
+    "halftone",
+    "hairlines",
+    "haze"
+  ],
+  "specSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "version": {
+        "default": 1,
+        "type": "number",
+        "const": 1
+      },
+      "title": {
+        "default": "Untitled",
+        "type": "string"
+      },
+      "format": {
+        "default": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "type": "object",
+        "properties": {
+          "width": {
+            "default": 1920,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "height": {
+            "default": 1080,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "fps": {
+            "default": 30,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "style": {
+        "default": "clean-saas",
+        "type": "string"
+      },
+      "styleOverrides": {
+        "type": "object",
+        "propertyNames": {
+          "type": "string"
+        },
+        "additionalProperties": {}
+      },
+      "brand": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "tagline": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "logoOnDark": {
+            "type": "string"
+          },
+          "mark": {
+            "type": "string"
+          },
+          "wordmark": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "font": {
+                "type": "object",
+                "properties": {
+                  "family": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "google": {
+                    "type": "boolean"
+                  },
+                  "italic": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "family"
+                ]
+              },
+              "weight": {
+                "type": "number"
+              },
+              "tracking": {
+                "type": "number"
+              }
+            }
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark"
+            ]
+          },
+          "colors": {
+            "type": "object",
+            "properties": {
+              "background": {
+                "type": "string"
+              },
+              "foreground": {
+                "type": "string"
+              },
+              "primary": {
+                "type": "string"
+              },
+              "primaryForeground": {
+                "type": "string"
+              },
+              "secondary": {
+                "type": "string"
+              },
+              "accent": {
+                "type": "string"
+              },
+              "card": {
+                "type": "string"
+              },
+              "muted": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "background",
+              "foreground",
+              "primary"
+            ]
+          },
+          "fonts": {
+            "default": {},
+            "type": "object",
+            "properties": {
+              "display": {
+                "type": "object",
+                "properties": {
+                  "family": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "google": {
+                    "type": "boolean"
+                  },
+                  "italic": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "family"
+                ]
+              },
+              "body": {
+                "type": "object",
+                "properties": {
+                  "family": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "google": {
+                    "type": "boolean"
+                  },
+                  "italic": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "family"
+                ]
+              },
+              "mono": {
+                "type": "object",
+                "properties": {
+                  "family": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "google": {
+                    "type": "boolean"
+                  },
+                  "italic": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "family"
+                ]
+              },
+              "accent": {
+                "type": "object",
+                "properties": {
+                  "family": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "google": {
+                    "type": "boolean"
+                  },
+                  "italic": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "family"
+                ]
+              }
+            }
+          },
+          "radius": {
+            "type": "number"
+          },
+          "accentItalic": {
+            "type": "boolean"
+          },
+          "screenshots": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "colors"
+        ]
+      },
+      "audio": {
+        "type": "object",
+        "properties": {
+          "voiceover": {
+            "type": "string"
+          },
+          "music": {
+            "type": "string"
+          },
+          "musicVolume": {
+            "default": 0.25,
+            "type": "number"
+          },
+          "voiceVolume": {
+            "default": 1,
+            "type": "number"
+          },
+          "duck": {
+            "default": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "speed": {
+        "default": 1,
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "grain": {
+        "type": "number"
+      },
+      "scenes": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "props": {
+              "default": {},
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            },
+            "transition": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "default": "cut",
+                  "type": "string",
+                  "enum": [
+                    "cut",
+                    "fade",
+                    "blur",
+                    "slide",
+                    "push",
+                    "wipe",
+                    "whip",
+                    "zoom",
+                    "flash",
+                    "flip",
+                    "iris",
+                    "clock",
+                    "impact",
+                    "strips",
+                    "slash",
+                    "glitch",
+                    "leak",
+                    "dip",
+                    "circle",
+                    "morph"
+                  ]
+                },
+                "duration": {
+                  "default": 0.4,
+                  "type": "number"
+                },
+                "direction": {
+                  "default": "left",
+                  "type": "string",
+                  "enum": [
+                    "left",
+                    "right",
+                    "up",
+                    "down"
+                  ]
+                },
+                "ease": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "easy",
+                    "out",
+                    "in",
+                    "inOut",
+                    "expo",
+                    "expoInOut",
+                    "snappy",
+                    "cut",
+                    "reveal",
+                    "smooth",
+                    "overshoot",
+                    "anticipate"
+                  ]
+                }
+              }
+            },
+            "camera": {
+              "type": "object",
+              "properties": {
+                "move": {
+                  "default": "none",
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "push_in",
+                    "pull_out",
+                    "drift",
+                    "pan_left",
+                    "pan_right",
+                    "tilt_up",
+                    "tilt_down",
+                    "punch_in",
+                    "dutch"
+                  ]
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "speed": {
+                  "default": 1,
+                  "type": "number"
+                },
+                "ease": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "easy",
+                    "out",
+                    "in",
+                    "inOut",
+                    "expo",
+                    "expoInOut",
+                    "snappy",
+                    "cut",
+                    "reveal",
+                    "smooth",
+                    "overshoot",
+                    "anticipate"
+                  ]
+                },
+                "focus": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "keys": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "number"
+                      },
+                      "zoom": {
+                        "default": 1,
+                        "type": "number"
+                      },
+                      "focus": {
+                        "default": [
+                          0.5,
+                          0.5
+                        ],
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      "rotate": {
+                        "default": 0,
+                        "type": "number"
+                      },
+                      "ease": {
+                        "default": "smooth",
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "easy",
+                          "out",
+                          "in",
+                          "inOut",
+                          "expo",
+                          "expoInOut",
+                          "snappy",
+                          "cut",
+                          "reveal",
+                          "smooth",
+                          "overshoot",
+                          "anticipate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "at"
+                    ]
+                  }
+                },
+                "shake": {
+                  "default": 0,
+                  "type": "number"
+                },
+                "motionBlur": {
+                  "default": false,
+                  "type": "boolean"
+                }
+              }
+            },
+            "background": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "flat",
+                    "gradient",
+                    "blobs",
+                    "grid",
+                    "dots",
+                    "spotlight",
+                    "paper",
+                    "aurora",
+                    "noise",
+                    "image",
+                    "mesh",
+                    "speedlines",
+                    "sunburst",
+                    "halftone",
+                    "hairlines",
+                    "haze"
+                  ]
+                },
+                "src": {
+                  "type": "string"
+                },
+                "dim": {
+                  "type": "number"
+                },
+                "colors": {
+                  "maxItems": 4,
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "angle": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "tone": {
+              "type": "string",
+              "enum": [
+                "base",
+                "inverse",
+                "primary"
+              ]
+            },
+            "speed": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "sfx": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "src": {
+                    "type": "string"
+                  },
+                  "at": {
+                    "default": 0,
+                    "type": "number"
+                  },
+                  "volume": {
+                    "default": 1,
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "src"
+                ]
+              }
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "duration"
+          ]
+        }
+      }
+    },
+    "required": [
+      "brand",
+      "scenes"
+    ]
+  }
+}

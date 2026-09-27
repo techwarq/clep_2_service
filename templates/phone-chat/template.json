@@ -1,0 +1,31 @@
+{
+  "id": "phone-chat",
+  "name": "Phone Chat",
+  "tagline": "A bright phone, a real conversation — the assistant handles it, you just approve.",
+  "bestFor": "Consumer apps, iMessage/WhatsApp agents, assistants, mobile-first products",
+  "references": ["Grok Bot", "Rene", "iHermes", "Gemini Live"],
+  "defaults": { "style": "soft-brand", "fontPairing": "soft", "backdrop": "brand-mesh", "pace": "normal", "textAnim": "words", "transition": "slide", "camera": "subtle", "format": "16:9" },
+  "slots": {
+    "hook":          { "label": "Hook", "type": "text", "max": 40, "default": "Your assistant lives in your texts." },
+    "hookAccent":    { "label": "Highlighted words", "type": "text", "max": 20, "default": "in your texts." },
+    "problemLines":  { "label": "Problem caption", "type": "textList", "maxItems": 2, "max": 22, "default": ["So many apps.", "So little time."] },
+    "notifications": { "label": "Notifications", "type": "items", "maxItems": 4, "fields": ["app", "title", "icon"], "default": [{ "app": "Mail", "title": "3 unread invoices", "icon": "mail" }] },
+    "chatCaption":   { "label": "Chat caption", "type": "textList", "maxItems": 2, "max": 22, "default": ["Just text it."] },
+    "messages":      { "label": "Conversation", "type": "items", "maxItems": 4, "fields": ["from", "text"], "default": [{ "from": "user", "text": "Handle my invoices" }, { "from": "agent", "text": "Done — 3 paid." }] },
+    "results":       { "label": "Result chips", "type": "textList", "maxItems": 3, "max": 26, "default": ["3 invoices paid"] },
+    "approveItems":  { "label": "Approval items", "type": "items", "maxItems": 2, "fields": ["name", "meta"], "default": [{ "name": "Invoice #1042", "meta": "Acme Co" }] },
+    "approveTotal":  { "label": "Approval total", "type": "text", "max": 10, "default": "$240" },
+    "endHeadline":   { "label": "Closing line", "type": "text", "max": 44, "default": "Text it. Done." },
+    "cta":           { "label": "Button", "type": "text", "max": 22, "default": "Get the app" },
+    "ctaUrl":        { "label": "URL", "type": "text", "max": 40, "default": "yourapp.com" }
+  },
+  "spec": {
+    "scenes": [
+      { "id": "hook", "type": "kinetic_title", "duration": 2.4, "props": { "title": "{{hook}}", "accent": "{{hookAccent}}" }, "transition": { "type": "slide", "duration": 0.45, "direction": "up" } },
+      { "id": "problem", "type": "notification_stack", "duration": 3.6, "props": { "caption": "{{problemLines}}", "notifications": "{{notifications}}", "device": "phone", "peel": true }, "transition": { "type": "slide", "duration": 0.45, "direction": "left" } },
+      { "id": "chat", "type": "chat_demo", "duration": 5, "props": { "caption": "{{chatCaption}}", "messages": "{{messages}}", "results": "{{results}}", "device": "phone" }, "tone": "primary", "transition": { "type": "slide", "duration": 0.45, "direction": "left" } },
+      { "id": "approve", "type": "approval_card", "duration": 3.6, "props": { "items": "{{approveItems}}", "total": "{{approveTotal}}", "approve": "Approve" }, "transition": { "type": "fade", "duration": 0.4 } },
+      { "id": "end", "type": "end_card", "duration": 3.2, "props": { "headline": "{{endHeadline}}", "cta": "{{cta}}", "url": "{{ctaUrl}}" } }
+    ]
+  }
+}

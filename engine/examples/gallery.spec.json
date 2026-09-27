@@ -1,0 +1,553 @@
+{
+  "version": 1,
+  "title": "Kit gallery",
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "style": "clean-saas",
+  "brand": {
+    "name": "Clep",
+    "url": "https://clep.dev",
+    "colors": {
+      "background": "#FAFAF9",
+      "foreground": "#0B0B0C",
+      "primary": "#4F46E5"
+    },
+    "fonts": {
+      "display": {
+        "family": "Inter"
+      },
+      "body": {
+        "family": "Inter"
+      }
+    },
+    "screenshots": [
+      "muse_tagline.jpeg"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "kinetic_title",
+      "type": "kinetic_title",
+      "duration": 2.9,
+      "props": {
+        "title": "Ship demos\nwithout editing.",
+        "accent": "without editing.",
+        "eyebrow": "New"
+      }
+    },
+    {
+      "id": "word_flash",
+      "type": "word_flash",
+      "duration": 2.5,
+      "props": {
+        "words": [
+          "Record.",
+          "Edit.",
+          "Zoom.",
+          "Export."
+        ],
+        "final": "Done in one click.",
+        "accent": "one click."
+      }
+    },
+    {
+      "id": "statement",
+      "type": "statement",
+      "duration": 3.8,
+      "props": {
+        "lines": [
+          "You don't need another tool.",
+          "You need the work done."
+        ],
+        "accent": "work done."
+      }
+    },
+    {
+      "id": "list_reveal",
+      "type": "list_reveal",
+      "duration": 3.5,
+      "props": {
+        "title": "What you get",
+        "items": [
+          "Auto zoom",
+          "Smooth cursor",
+          "4K export"
+        ],
+        "emphasis": 1
+      }
+    },
+    {
+      "id": "quote",
+      "type": "quote",
+      "duration": 4,
+      "props": {
+        "quote": "We cut our launch video time from a week to an afternoon.",
+        "author": "Alex Rivera",
+        "role": "Head of Growth"
+      }
+    },
+    {
+      "id": "site_showcase",
+      "type": "site_showcase",
+      "duration": 4.5,
+      "props": {
+        "screenshot": "muse_tagline.jpeg",
+        "url": "clep.dev",
+        "scroll": 0.3,
+        "zoom": {
+          "x": 0.5,
+          "y": 0.45,
+          "scale": 1.6,
+          "at": 1.6
+        },
+        "callouts": [
+          {
+            "text": "One-click export",
+            "x": 0.62,
+            "y": 0.4,
+            "at": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "ui_click",
+      "type": "ui_click",
+      "duration": 4,
+      "props": {
+        "heading": "Turn this flow into a video",
+        "button": "Generate clip",
+        "result": "Clip ready — 0:28",
+        "tag": "Signup flow"
+      }
+    },
+    {
+      "id": "feature_grid",
+      "type": "feature_grid",
+      "duration": 4,
+      "props": {
+        "title": "Everything in one pass",
+        "features": [
+          {
+            "icon": "mouse-pointer-click",
+            "title": "Real cursor",
+            "desc": "Recorded, then smoothed"
+          },
+          {
+            "icon": "zoom-in",
+            "title": "Auto zoom",
+            "desc": "Follows every click"
+          },
+          {
+            "icon": "film",
+            "title": "4K export",
+            "desc": "MP4, GIF, WebM"
+          }
+        ],
+        "highlight": 1
+      }
+    },
+    {
+      "id": "search_results",
+      "type": "search_results",
+      "duration": 4,
+      "props": {
+        "query": "What changed in our signup flow?",
+        "status": "Reading 4 pages…",
+        "results": [
+          {
+            "title": "Signup v2 shipped",
+            "source": "GitHub",
+            "meta": "2h ago"
+          },
+          {
+            "title": "Conversion up 18%",
+            "source": "Analytics"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chat_demo",
+      "type": "chat_demo",
+      "duration": 4.8,
+      "props": {
+        "messages": [
+          {
+            "from": "user",
+            "text": "Make a 30s launch clip of onboarding"
+          },
+          {
+            "from": "agent",
+            "text": "On it — recording now."
+          }
+        ],
+        "results": [
+          "Recorded 6 steps",
+          "Zoomed on 3 clicks",
+          "Exported 1080p"
+        ],
+        "caption": [
+          "Just ask."
+        ]
+      }
+    },
+    {
+      "id": "notification_stack",
+      "type": "notification_stack",
+      "duration": 4,
+      "props": {
+        "caption": [
+          "Too many tools.",
+          "Too many tabs."
+        ],
+        "notifications": [
+          {
+            "app": "Slack",
+            "title": "Can you record the demo?",
+            "icon": "message-square"
+          },
+          {
+            "app": "Loom",
+            "title": "Recording failed",
+            "icon": "video-off"
+          },
+          {
+            "app": "Calendar",
+            "title": "Launch in 2 hours",
+            "icon": "calendar"
+          }
+        ]
+      }
+    },
+    {
+      "id": "approval_card",
+      "type": "approval_card",
+      "duration": 4,
+      "props": {
+        "items": [
+          {
+            "name": "Pro plan",
+            "meta": "Annual"
+          },
+          {
+            "name": "2 extra seats"
+          }
+        ],
+        "total": "$240",
+        "approve": "Allow"
+      }
+    },
+    {
+      "id": "phone_showcase",
+      "type": "phone_showcase",
+      "duration": 4,
+      "props": {
+        "caption": [
+          "Your whole day,",
+          "handled."
+        ]
+      }
+    },
+    {
+      "id": "terminal_type",
+      "type": "terminal_type",
+      "duration": 3.8,
+      "props": {
+        "lines": [
+          "npx clep record --flow signup",
+          "> ✓ Captured 6 steps",
+          "> ✓ Rendered 1080p in 14s"
+        ]
+      }
+    },
+    {
+      "id": "code_zoom",
+      "type": "code_zoom",
+      "duration": 4,
+      "props": {
+        "lines": [
+          "import { Clep } from \"@clep/sdk\"",
+          "",
+          "const clep = new Clep()",
+          "await clep.record(\"signup\")",
+          "await clep.export({ format: \"mp4\" })"
+        ],
+        "highlight": 4,
+        "blowup": "clep.record(\"signup\")"
+      }
+    },
+    {
+      "id": "stat_counter",
+      "type": "stat_counter",
+      "duration": 3.3,
+      "props": {
+        "stats": [
+          {
+            "value": "10x",
+            "label": "faster launches"
+          },
+          {
+            "value": "98%",
+            "label": "less editing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_ring",
+      "type": "progress_ring",
+      "duration": 3.3,
+      "props": {
+        "label": "Rendering 4K",
+        "done": "Ready"
+      }
+    },
+    {
+      "id": "bar_chart",
+      "type": "bar_chart",
+      "duration": 4,
+      "props": {
+        "title": "Time to first video",
+        "bars": [
+          {
+            "label": "Screen Studio",
+            "value": 45,
+            "display": "45 min"
+          },
+          {
+            "label": "Manual edit",
+            "value": 180,
+            "display": "3 hrs"
+          },
+          {
+            "label": "Clep",
+            "value": 2,
+            "display": "2 min"
+          }
+        ],
+        "highlight": 2
+      }
+    },
+    {
+      "id": "split_compare",
+      "type": "split_compare",
+      "duration": 4.5,
+      "props": {
+        "left": {
+          "title": "Before",
+          "items": [
+            "Record",
+            "Import",
+            "Cut",
+            "Zoom",
+            "Export"
+          ]
+        },
+        "right": {
+          "title": "With Clep",
+          "items": [
+            "Tag the flow",
+            "Done"
+          ]
+        }
+      }
+    },
+    {
+      "id": "flow_diagram",
+      "type": "flow_diagram",
+      "duration": 4,
+      "props": {
+        "nodes": [
+          {
+            "label": "Your app",
+            "icon": "app-window"
+          },
+          {
+            "label": "Clep",
+            "icon": "sparkles",
+            "sub": "records + edits"
+          },
+          {
+            "label": "MP4",
+            "icon": "film"
+          }
+        ],
+        "highlight": 1,
+        "caption": "Three steps. Zero editing."
+      }
+    },
+    {
+      "id": "card_scatter",
+      "type": "card_scatter",
+      "duration": 3.5,
+      "props": {
+        "cards": [
+          {
+            "label": "Sign up",
+            "icon": "user-plus"
+          },
+          {
+            "label": "Verify email",
+            "icon": "mail-check"
+          },
+          {
+            "label": "Dashboard",
+            "icon": "layout-dashboard"
+          },
+          {
+            "label": "Invite team",
+            "icon": "users"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timeline_assemble",
+      "type": "timeline_assemble",
+      "duration": 4.5,
+      "props": {
+        "clips": [
+          "Sign up",
+          "Verify email",
+          "Dashboard",
+          "Invite team"
+        ],
+        "tags": [
+          "zoom",
+          "cut",
+          "focus",
+          "cursor"
+        ]
+      }
+    },
+    {
+      "id": "logo_wall",
+      "type": "logo_wall",
+      "duration": 3.3,
+      "props": {
+        "logos": [
+          "Vercel",
+          "Linear",
+          "Raycast",
+          "Supabase",
+          "Resend",
+          "Cursor"
+        ]
+      }
+    },
+    {
+      "id": "logo_reveal",
+      "type": "logo_reveal",
+      "duration": 3.1,
+      "props": {
+        "tagline": "Product videos that edit themselves.",
+        "variant": "cross"
+      }
+    },
+    {
+      "id": "end_card",
+      "type": "end_card",
+      "duration": 3.5,
+      "props": {
+        "headline": "Ship the video with the feature.",
+        "cta": "Try Clep free",
+        "url": "clep.dev"
+      }
+    },
+    {
+      "id": "clip_showcase",
+      "type": "clip_showcase",
+      "duration": 9,
+      "props": {
+        "src": "clips/capture.webm",
+        "focuses": [
+          {
+            "t": 1.2,
+            "x": 0.5,
+            "y": 0.4,
+            "label": "Paste your doc",
+            "click": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "table_fill",
+      "type": "table_fill",
+      "duration": 4.8,
+      "props": {
+        "title": "It works the list for you",
+        "columns": [
+          "Company",
+          "Founder",
+          "Funding"
+        ],
+        "rows": [
+          [
+            "Linear",
+            "Karri Saarinen",
+            "$82M"
+          ],
+          [
+            "Raycast",
+            "Thomas Paul Mann",
+            "$45M"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "film_reel",
+      "type": "film_reel",
+      "duration": 8,
+      "props": {
+        "films": [
+          {
+            "src": "user/a.mp4",
+            "title": "Talo"
+          },
+          {
+            "src": "user/b.mp4",
+            "title": "Linear"
+          }
+        ],
+        "caption": "Every brand, its own film."
+      }
+    },
+    {
+      "id": "agent_trace",
+      "type": "agent_trace",
+      "duration": 9.5,
+      "props": {
+        "prompt": "why did churn go up in march?",
+        "steps": [
+          {
+            "text": "Signups",
+            "value": "flat",
+            "dir": "none"
+          },
+          {
+            "text": "Onboarding drop-off",
+            "value": "31%",
+            "dir": "up"
+          },
+          {
+            "text": "Bug reports, one screen",
+            "value": "×84",
+            "dir": "up"
+          },
+          {
+            "text": "All on Android",
+            "dir": "none"
+          }
+        ],
+        "result": "One broken screen.",
+        "resultAccent": "broken screen."
+      }
+    }
+  ]
+}

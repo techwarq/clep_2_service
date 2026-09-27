@@ -1,0 +1,36 @@
+{
+  "id": "editorial",
+  "name": "Editorial",
+  "tagline": "A calm argument on paper: serif headlines, italic accents, the product as proof.",
+  "bestFor": "Thoughtful products, writing/reading/finance tools, founder letters, category-defining launches",
+  "references": ["Mirasim", "Commons", "Claude Opus 5.5", "Stripe Press"],
+  "defaults": { "style": "editorial-paper", "fontPairing": "editorial", "backdrop": "paper", "pace": "calm", "textAnim": "words", "transition": "cut", "camera": "subtle", "format": "16:9" },
+  "slots": {
+    "opening":       { "label": "Opening lines", "type": "textList", "maxItems": 3, "max": 40, "default": ["Most tools want your attention.", "This one gives it back."] },
+    "openingAccent": { "label": "Highlighted words", "type": "text", "max": 24, "default": "gives it back." },
+    "screenshot":    { "label": "Product screenshot", "type": "image" },
+    "shotCaption":   { "label": "Caption beside the product", "type": "text", "max": 44, "default": "Everything in one quiet place." },
+    "shotAccent":    { "label": "Highlighted words", "type": "text", "max": 20, "default": "one quiet place." },
+    "url":           { "label": "Address bar", "type": "text", "max": 40, "default": "yourproduct.com" },
+    "oldWayTitle":   { "label": "Old way title", "type": "text", "max": 16, "default": "Before" },
+    "oldWay":        { "label": "Old way", "type": "textList", "maxItems": 5, "max": 18, "default": ["Tabs", "Tabs", "More tabs"] },
+    "newWayTitle":   { "label": "New way title", "type": "text", "max": 16, "default": "Now" },
+    "newWay":        { "label": "New way", "type": "textList", "maxItems": 3, "max": 18, "default": ["One place"] },
+    "quote":         { "label": "Quote", "type": "text", "max": 110, "default": "It's the first tool I open and the last one I close." },
+    "quoteAuthor":   { "label": "Quote author", "type": "text", "max": 28, "default": "A happy customer" },
+    "quoteRole":     { "label": "Author role", "type": "text", "max": 32, "default": "" },
+    "endHeadline":   { "label": "Closing line", "type": "text", "max": 44, "default": "Made with care." },
+    "endAccent":     { "label": "Highlighted words", "type": "text", "max": 20, "default": "care." },
+    "cta":           { "label": "Button", "type": "text", "max": 22, "default": "Read more" },
+    "ctaUrl":        { "label": "URL", "type": "text", "max": 40, "default": "yourproduct.com" }
+  },
+  "spec": {
+    "scenes": [
+      { "id": "open", "type": "statement", "duration": 3.4, "props": { "lines": "{{opening}}", "accent": "{{openingAccent}}" } },
+      { "id": "product", "type": "site_showcase", "duration": 4.2, "props": { "screenshot": "{{screenshot}}", "title": "{{shotCaption}}", "accent": "{{shotAccent}}", "url": "{{url}}", "scroll": 0.2, "tilt": true } },
+      { "id": "contrast", "type": "split_compare", "duration": 4, "props": { "left": { "title": "{{oldWayTitle}}", "items": "{{oldWay}}" }, "right": { "title": "{{newWayTitle}}", "items": "{{newWay}}" } } },
+      { "id": "quote", "type": "quote", "duration": 3.8, "props": { "quote": "{{quote}}", "author": "{{quoteAuthor}}", "role": "{{quoteRole}}" } },
+      { "id": "end", "type": "end_card", "duration": 3.4, "props": { "headline": "{{endHeadline}}", "accent": "{{endAccent}}", "cta": "{{cta}}", "url": "{{ctaUrl}}" } }
+    ]
+  }
+}

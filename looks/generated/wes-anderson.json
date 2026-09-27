@@ -1,0 +1,57 @@
+{
+  "name": "wes-anderson",
+  "label": "Wes Anderson",
+  "aliases": [
+    "wes anderson",
+    "wes-anderson",
+    "andersonian",
+    "grand budapest",
+    "asteroid city",
+    "symmetrical",
+    "pastel film",
+    "indie film",
+    "storybook"
+  ],
+  "description": "Pastel storybook symmetry: warm paper flats, centered Futura-like caps, hard cuts, cinematic letterbox with soft vignette.",
+  "base": "editorial-paper",
+  "paletteMode": "look",
+  "palette": {
+    "background": "#FBEFD0",
+    "foreground": "#2B2622",
+    "primary": "#E8A87C",
+    "accent": "#7FB5B5"
+  },
+  "mode": "light",
+  "fonts": {
+    "display": "Jost",
+    "body": "EB Garamond"
+  },
+  "background": {
+    "kind": "paper"
+  },
+  "overlays": [
+    "paper",
+    "vignette",
+    "letterbox"
+  ],
+  "textEffect": "none",
+  "transition": {
+    "type": "cut",
+    "duration": 0.3
+  },
+  "camera": {
+    "move": "none",
+    "amount": 0.0
+  },
+  "textAnim": "mask",
+  "uppercase": true,
+  "pace": "calm",
+  "unsupported": [
+    "perfect symmetry framing"
+  ],
+  "transitions": [
+    "cut",
+    "push",
+    "dip"
+  ]
+}

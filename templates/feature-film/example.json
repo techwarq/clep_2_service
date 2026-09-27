@@ -1,0 +1,68 @@
+{
+  "brand": {
+    "name": "clep",
+    "url": "https://clep.abstraklabs.com",
+    "tagline": "Product demos, straight from your code.",
+    "colors": {
+      "background": "#ebebeb",
+      "foreground": "#0d1412",
+      "primary": "#c8f542",
+      "primaryForeground": "#101505",
+      "accent": "#4d7c0f",
+      "card": "#ffffff",
+      "muted": "#ecefec",
+      "secondary": "#f4f6f4"
+    },
+    "fonts": {
+      "display": {
+        "family": "Instrument Serif",
+        "google": true,
+        "weight": 400
+      },
+      "body": {
+        "family": "Public Sans",
+        "google": true
+      },
+      "mono": {
+        "family": "IBM Plex Mono",
+        "google": true
+      }
+    },
+    "radius": 20,
+    "mode": "light",
+    "accentItalic": true,
+    "mark": "brand/clep-mark.svg",
+    "wordmark": {
+      "text": "clep",
+      "font": {
+        "family": "Poppins",
+        "google": true
+      },
+      "weight": 600,
+      "tracking": -0.03
+    }
+  },
+  "controls": {
+    "fontPairing": "brand",
+    "backdrop": "pastel"
+  },
+  "values": {
+    "eyebrow": "Live \u00b7 Claude Code plugin",
+    "hook": "Product demos,\nstraight from your code.",
+    "hookAccent": "straight from your code.",
+    "clip": {
+      "src": "clips/clep-capture.mp4",
+      "trace": "clips/clep-capture.trace.json"
+    },
+    "url": "clep.abstraklabs.com",
+    "benefitsTitle": "One command. Your whole product.",
+    "benefits": [
+      "Finds the feature",
+      "Runs it live",
+      "Ships the video"
+    ],
+    "endHeadline": "Build it. /clep it. Share it.",
+    "cta": "Ask for invite",
+    "ctaUrl": "clep.abstraklabs.com"
+  }
+}

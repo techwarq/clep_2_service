@@ -1,0 +1,53 @@
+{
+  "brand": {
+    "name": "Margins",
+    "colors": {
+      "background": "#F3EEE4",
+      "foreground": "#1A1714",
+      "primary": "#B4432E",
+      "primaryForeground": "#FFFFFF"
+    },
+    "mode": "light",
+    "radius": 14,
+    "wordmark": {
+      "font": {
+        "family": "Instrument Serif",
+        "google": true
+      },
+      "weight": 400,
+      "tracking": -0.01
+    }
+  },
+  "controls": {},
+  "values": {
+    "opening": [
+      "Most apps want your attention.",
+      "This one gives it back."
+    ],
+    "openingAccent": "gives it back.",
+    "screenshot": "shots/app.png",
+    "shotCaption": "Read slowly. Think in the margins.",
+    "shotAccent": "in the margins.",
+    "url": "margins.app",
+    "oldWayTitle": "Before",
+    "oldWay": [
+      "Tabs",
+      "Screenshots",
+      "Lost notes",
+      "Forgotten"
+    ],
+    "newWayTitle": "Margins",
+    "newWay": [
+      "Read",
+      "Underline",
+      "Remember"
+    ],
+    "quote": "The first reading app that made me want to read more slowly.",
+    "quoteAuthor": "Ada Whitfield",
+    "quoteRole": "Essayist",
+    "endHeadline": "Read like you mean it.",
+    "endAccent": "mean it.",
+    "cta": "Start reading",
+    "ctaUrl": "margins.app"
+  }
+}

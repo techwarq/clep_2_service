@@ -1,0 +1,27 @@
+{
+  "fontPairings": {
+    "brand":     { "label": "Brand fonts (from your site)" },
+    "editorial": { "label": "Editorial — Instrument Serif + Public Sans", "display": { "family": "Instrument Serif", "google": true, "weight": 400 }, "body": { "family": "Public Sans", "google": true }, "mono": { "family": "IBM Plex Mono", "google": true }, "accentItalic": true, "tracking": -0.01 },
+    "swiss":     { "label": "Swiss — Inter Tight", "display": { "family": "Inter Tight", "google": true }, "body": { "family": "Inter", "google": true }, "mono": { "family": "JetBrains Mono", "google": true }, "tracking": -0.045 },
+    "geist":     { "label": "Geist — Geist + Geist Mono", "display": { "family": "Geist", "google": true }, "body": { "family": "Geist", "google": true }, "mono": { "family": "Geist Mono", "google": true }, "tracking": -0.04 },
+    "grotesk":   { "label": "Grotesk — Space Grotesk + DM Sans", "display": { "family": "Space Grotesk", "google": true }, "body": { "family": "DM Sans", "google": true }, "mono": { "family": "JetBrains Mono", "google": true }, "tracking": -0.035 },
+    "soft":      { "label": "Soft — Nunito rounded", "display": { "family": "Nunito", "google": true }, "body": { "family": "Nunito", "google": true }, "mono": { "family": "JetBrains Mono", "google": true }, "tracking": -0.02 },
+    "serif-modern": { "label": "Modern serif — Fraunces + Manrope", "display": { "family": "Fraunces", "google": true }, "body": { "family": "Manrope", "google": true }, "mono": { "family": "IBM Plex Mono", "google": true }, "tracking": -0.025 },
+    "poster":    { "label": "Poster — Anton condensed", "display": { "family": "Anton", "google": true, "weight": 400 }, "body": { "family": "Inter", "google": true }, "mono": { "family": "JetBrains Mono", "google": true }, "tracking": 0, "uppercase": true }
+  },
+  "backdrops": {
+    "brand-mesh": { "label": "Brand mesh gradient", "kind": "mesh" },
+    "pastel":     { "label": "Pastel gradient", "kind": "mesh", "colors": ["#c4b5fd", "#f9a8d4", "#bfdbfe", "#fde68a"] },
+    "paper":      { "label": "Paper", "kind": "paper" },
+    "grid":       { "label": "Grid", "kind": "grid" },
+    "dots":       { "label": "Dot grid", "kind": "dots" },
+    "spotlight":  { "label": "Spotlight", "kind": "spotlight" },
+    "aurora":     { "label": "Aurora", "kind": "aurora" },
+    "flat":       { "label": "Solid", "kind": "flat" }
+  },
+  "pace":        { "calm": 0.85, "normal": 1, "snappy": 1.2 },
+  "textAnims":   ["mask", "words", "chars", "slam", "scramble", "blur", "stream", "pullout", "build"],
+  "transitions": { "cut": 0, "fade": 0.4, "blur": 0.45, "whip": 0.35, "zoom": 0.4, "slide": 0.45, "flash": 0.3 },
+  "camera":      { "still": 0, "subtle": 0.6, "normal": 1, "dynamic": 1.5 },
+  "formats":     { "16:9": [1920, 1080], "9:16": [1080, 1920], "1:1": [1080, 1080], "4:5": [1080, 1350] }
+}
