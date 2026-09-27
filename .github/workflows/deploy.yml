@@ -12,6 +12,8 @@ name: CI / deploy motion
 # exchanged for short-lived credentials via clep-2-service-provider in the
 # github-pool pool (doctosheet-be), which only accepts techwarq/clep_2_service.
 # Secrets are Secret Manager references — no values ever appear here or in logs.
+# Builds run with --suppress-logs: streaming needs project Viewer, which the deployer
+# deliberately lacks; build logs are in the Cloud Build console.
 
 on:
   push:
@@ -72,7 +74,7 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v2
 
       - name: Build image
-        run: gcloud builds submit . --project $PROJECT --region $REGION --tag $IMAGE:${{ github.sha }} --timeout 40m --quiet
+        run: gcloud builds submit . --project $PROJECT --region $REGION --tag $IMAGE:${{ github.sha }} --timeout 40m --suppress-logs --quiet
 
       - name: Deploy service
         run: |
