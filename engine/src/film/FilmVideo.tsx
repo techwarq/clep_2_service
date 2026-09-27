@@ -4,14 +4,14 @@ import { progress } from "@/kit/motion";
 import { Grain, Vignette } from "@/kit/ui/promo";
 import type { BrandT } from "../engine/spec";
 import { loadBrandFonts } from "../engine/fonts";
-import { makeTheme, FilmThemeProvider, FilmTheme } from "./theme";
+import { makeTheme, FilmThemeProvider, FilmTheme, FilmLook } from "./theme";
 import { BEATS, Beat } from "./beats";
 
 /**
  * A chat-made launch film. director/filmspec.py writes the props: every beat's
  * window, voice line and event times are already computed, so this only draws.
  */
-export type FilmProps = { brand: BrandT; fps: number; width: number; height: number; duration: number; beats: Beat[] };
+export type FilmProps = { brand: BrandT; fps: number; width: number; height: number; duration: number; beats: Beat[]; look?: FilmLook };
 
 export const calculateFilmMetadata: CalculateMetadataFunction<FilmProps> = ({ props }) => ({
   fps: props.fps || 60,
@@ -22,19 +22,44 @@ export const calculateFilmMetadata: CalculateMetadataFunction<FilmProps> = ({ pr
 
 const FADE = 0.4;
 
-const Ground: React.FC<{ th: FilmTheme; dark: boolean }> = ({ th, dark }) =>
-  dark ? (
-    <AbsoluteFill style={{ background: `radial-gradient(1200px 800px at 50% 40%, ${th.night}, #050706 80%)` }} />
-  ) : (
+const Ground: React.FC<{ th: FilmTheme; dark: boolean }> = ({ th, dark }) => {
+  const g = th.look.ground ?? "glow";
+  if (dark)
+    return (
+      <AbsoluteFill style={{ background: g === "flat" ? th.night : `radial-gradient(1200px 800px at 50% 40%, ${th.night}, #050706 80%)` }}>
+        {g === "grid" && <GridLines color="rgba(255,255,255,.05)" />}
+      </AbsoluteFill>
+    );
+  if (g === "flat") return <AbsoluteFill style={{ background: th.paper }} />;
+  if (g === "grid")
+    return (
+      <AbsoluteFill style={{ background: th.paper }}>
+        <GridLines color={`${th.ink}10`} />
+      </AbsoluteFill>
+    );
+  return (
     <AbsoluteFill style={{ background: `radial-gradient(900px 600px at 8% 0%, ${th.pop}33, ${th.pop}00 70%), radial-gradient(900px 700px at 100% 8%, ${th.accent}1f, ${th.accent}00 70%), ${th.paper}` }} />
   );
+};
+
+/** Fine engineering grid, fading out toward the edges. */
+const GridLines: React.FC<{ color: string }> = ({ color }) => (
+  <AbsoluteFill
+    style={{
+      backgroundImage: `linear-gradient(${color} 1px, transparent 1px), linear-gradient(90deg, ${color} 1px, transparent 1px)`,
+      backgroundSize: "80px 80px",
+      maskImage: "radial-gradient(ellipse at 50% 45%, #000 35%, transparent 80%)",
+      WebkitMaskImage: "radial-gradient(ellipse at 50% 45%, #000 35%, transparent 80%)",
+    }}
+  />
+);
 
 export const FilmVideo: React.FC<FilmProps> = (props) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
   loadBrandFonts(props.brand);
-  const th = makeTheme(props.brand);
+  const th = makeTheme(props.brand, props.look ?? {});
   const beats = props.beats;
   return (
     <FilmThemeProvider value={th}>

@@ -35,27 +35,82 @@ export function parse(text: string): Word[] {
 }
 
 const plain = (text: string) => text.replace(/[*`]/g, "");
-export const fit = (text: string, max: number, width = 1640, k = 0.48) => Math.max(64, Math.min(max, width / (Math.max(8, plain(text).length) * k)));
+/** Font size that fits `width`: capitals and wide glyphs count ~1.4× a lowercase letter. */
+const ems = (text: string) => [...plain(text)].reduce((n, ch) => n + (/[A-Z0-9MW@%]/.test(ch) ? 1.4 : ch === " " ? 0.6 : 1), 0);
+export const fit = (text: string, max: number, width = 1640, k = 0.48) => Math.max(56, Math.min(max, width / (Math.max(8, ems(text)) * k)));
+/** "Factech Automation Solutions Private Limited" → "Factech" for small labels. */
+export const shortName = (b: { name: string; wordmark?: { text?: string } }) =>
+  b.wordmark?.text || b.name.replace(/\b(inc|llc|ltd|limited|private|pvt|gmbh|corp|corporation|solutions|technologies|labs?)\b\.?/gi, "").trim().split(/\s+/).slice(0, 2).join(" ");
 
 const Head: React.FC<{ t: number; at: number; text: string; size: number; dark?: boolean; y: number; dur?: number; stagger?: number }> = ({ t, at, text, size, dark, y, dur = 0.7, stagger = 0.08 }) => {
   const th = useFilm();
+  const v = th.look.headline ?? "center";
+  const color = dark ? th.nightInk : th.ink;
+  const accent = dark ? th.nightAccent : th.accent;
+  const left = v === "left";
+  const box: React.CSSProperties = { position: "absolute", left: left ? 170 : 0, right: left ? 120 : 0, top: y, display: "flex", justifyContent: left ? "flex-start" : "center", transform: "translateY(-50%)" };
+  if (v === "mask" || v === "type") {
+    const words = parse(text);
+    const common: React.CSSProperties = { fontFamily: th.display, fontSize: size, lineHeight: 1.08, letterSpacing: "-0.02em", color, whiteSpace: "nowrap", display: "flex", gap: size * 0.24 };
+    if (v === "type") {
+      // typewriter: characters land one by one behind a solid caret
+      const full = words.map((w) => (typeof w === "string" ? w : w.w)).join(" ");
+      const n = Math.floor(Math.max(0, t - at) * 26);
+      let used = 0;
+      return (
+        <div style={box}>
+          <div style={common}>
+            {words.map((w, i) => {
+              const o = typeof w === "string" ? { w } : w;
+              const shown = o.w.slice(0, Math.max(0, n - used));
+              used += o.w.length + 1;
+              if (!shown) return null;
+              return (
+                <span key={i} style={{ color: o.accent ? accent : undefined, fontStyle: o.accent && th.italic ? "italic" : undefined, fontFamily: o.mono ? th.mono : undefined }}>
+                  {shown}
+                </span>
+              );
+            })}
+            {n <= full.length + 8 && <span style={{ width: size * 0.06, height: size * 0.95, background: accent, alignSelf: "center", opacity: n > full.length && Math.floor(t * 2.4) % 2 ? 0 : 1 }} />}
+          </div>
+        </div>
+      );
+    }
+    // mask: each word rises out of a hard line, no blur
+    return (
+      <div style={box}>
+        <div style={common}>
+          {words.map((w, i) => {
+            const o = typeof w === "string" ? { w } : w;
+            const k = progress(t, at + i * stagger, dur * 0.9, "expo");
+            return (
+              <span key={i} style={{ display: "inline-block", overflow: "hidden", paddingBottom: size * 0.12, marginBottom: -size * 0.12 }}>
+                <span style={{ display: "inline-block", transform: `translateY(${(1 - k) * 110}%)`, color: o.accent ? accent : undefined, fontStyle: o.accent && th.italic ? "italic" : undefined, fontFamily: o.mono ? th.mono : undefined }}>{o.w}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
   return (
-    <div style={{ position: "absolute", left: 0, right: 0, top: y, display: "flex", justifyContent: "center", transform: "translateY(-50%)" }}>
+    <div style={box}>
       <Words
         t={t}
         at={at}
         words={parse(text)}
-        size={size}
+        size={left ? size * 1.08 : size}
         font={th.display}
         accentFont={th.display}
         monoFont={th.mono}
-        color={dark ? th.nightInk : th.ink}
-        accentColor={dark ? th.nightAccent : th.accent}
+        color={color}
+        accentColor={accent}
         monoBg={dark ? th.nightAccent : th.ink}
         monoColor={dark ? th.night : th.pop}
         dur={dur}
         stagger={stagger}
         italicAccent={th.italic}
+        align={left ? "left" : "center"}
       />
     </div>
   );
@@ -373,7 +428,12 @@ export const Code: React.FC<P> = ({ t, b }) => {
 };
 
 // ── reveal: meet the product ──────────────────────────────────────────────
-export const Reveal: React.FC<P> = ({ t, b }) => {
+export const Reveal: React.FC<P> = (p) => {
+  const v = useFilm().look.reveal ?? "flare";
+  return v === "split" ? <RevealSplit {...p} /> : v === "grid" ? <RevealGrid {...p} /> : <RevealFlare {...p} />;
+};
+
+const RevealFlare: React.FC<P> = ({ t, b }) => {
   const th = useFilm();
   const at = b.ev.logo;
   const flare = progress(t, at - 0.05, 0.45, "expo") * (1 - 0.65 * progress(t, at + 0.5, 1.2));
@@ -399,11 +459,52 @@ export const Reveal: React.FC<P> = ({ t, b }) => {
   );
 };
 
+/** Logo rises out of a dot field that pulses from the center. */
+const RevealGrid: React.FC<P> = ({ t, b }) => {
+  const th = useFilm();
+  const at = b.ev.logo;
+  const k = progress(t, at - 0.3, 1.2, "expo");
+  const up = b.tagline ? progress(t, b.ev.tag - 0.2, 0.8, "expo") : 0;
+  return (
+    <>
+      <DotField t={t} w={1920} h={1080} color={b.dark ? th.nightInk : th.ink} hot={th.pop} hotAt={{ x: 960, y: 520 - up * 150, r: 520, k }} opacity={0.9} />
+      <div style={{ position: "absolute", left: 960, top: 520 - up * 170, transform: `translate(-50%,-50%) scale(${1 - up * 0.28})` }}>
+        <div style={{ padding: "36px 56px", borderRadius: 36, background: b.dark ? th.night : th.paper, boxShadow: `0 0 0 ${k * 10}px ${th.pop}22` }}>
+          <Lockup t={t} at={at} size={170} onDark={b.dark} />
+        </div>
+      </div>
+      {b.tagline && <Lines t={t} b={{ ...b, vo: { ...b.vo, words: [b.ev.tag, b.ev.tag + 0.45] } }} text={splitTag(b.tagline)} y={640} max={120} dark={b.dark} />}
+    </>
+  );
+};
+
+/** Logo left, a rule draws down the middle, tagline set left-aligned on the right. */
+const RevealSplit: React.FC<P> = ({ t, b }) => {
+  const th = useFilm();
+  const at = b.ev.logo;
+  const rule = progress(t, at + 0.25, 0.7, "expo");
+  const lines: string[] = b.tagline ? splitTag(b.tagline).split(/\s*\\n\s*|\n/) : [];
+  const size = Math.min(110, ...lines.map((l) => fit(l, 110, 760)));
+  return (
+    <>
+      <div style={{ position: "absolute", left: 540, top: 540, transform: "translate(-50%,-50%)" }}>
+        <Lockup t={t} at={at} size={150} onDark={b.dark} />
+      </div>
+      <div style={{ position: "absolute", left: 960, top: 540 - 180 * rule, width: 3, height: 360 * rule, background: b.dark ? th.nightAccent : th.accent, borderRadius: 2 }} />
+      {lines.map((l, i) => (
+        <div key={i} style={{ position: "absolute", left: 1030, top: 540 + (i - (lines.length - 1) / 2) * size * 1.12, transform: "translateY(-50%)" }}>
+          <Words t={t} at={b.ev.tag + i * 0.4} words={parse(l)} size={size} font={th.display} accentFont={th.display} monoFont={th.mono} color={b.dark ? th.nightInk : th.ink} accentColor={b.dark ? th.nightAccent : th.accent} align="left" italicAccent={th.italic} dur={0.7} />
+        </div>
+      ))}
+    </>
+  );
+};
+
 /** A long tagline goes on two lines; accent the second half unless the writer marked one. */
 function splitTag(s: string) {
   if (s.includes("*")) return s.length > 34 && s.includes(",") ? s.replace(/,\s*/, ",\\n") : s;
   const words = s.split(" ");
-  if (s.length <= 30) return s;
+  if (ems(s) <= 34) return s;
   const half = Math.ceil(words.length / 2);
   return `${words.slice(0, half).join(" ")}\\n*${words.slice(half).join(" ")}*`;
 }
@@ -472,7 +573,7 @@ export const Prompt: React.FC<P> = ({ t, b }) => {
       )}
       {t >= ev.app.enter - 0.1 && (
         <div style={{ position: "absolute", left: BROWSER.x, top: BROWSER.y, opacity: bIn, transform: `translateX(${(1 - bIn) * 140}px) scale(${0.94 + bIn * 0.06})`, filter: bIn < 1 ? `blur(${(1 - bIn) * 12}px)` : undefined }}>
-          <AppWindow w={BROWSER.w} t={t} a={b.app as AppFields} T={ev.app as AppTimes} label={th.brand.name} right={<RecChip t={t} />} />
+          <AppWindow w={BROWSER.w} t={t} a={b.app as AppFields} T={ev.app as AppTimes} label={shortName(th.brand)} right={<RecChip t={t} />} />
         </div>
       )}
     </>
@@ -527,7 +628,32 @@ export const Screenshot: React.FC<P> = ({ t, b }) => {
 };
 
 // ── result: the finished film ─────────────────────────────────────────────
-export const Result: React.FC<P> = ({ t, b }) => {
+export const Result: React.FC<P> = (p) => ((useFilm().look.result ?? "player") === "cards" ? <ResultCards {...p} /> : <ResultPlayer {...p} />);
+
+/** Outcomes as big cards, each landing on its spoken word. */
+const ResultCards: React.FC<P> = ({ t, b }) => {
+  const th = useFilm();
+  const chips: string[] = b.chips;
+  const w = Math.min(520, (1640 - (chips.length - 1) * 40) / chips.length);
+  return (
+    <>
+      <Lines t={t} b={b} text={b.text} y={260} max={140} dark={b.dark} />
+      <div style={{ position: "absolute", left: 0, right: 0, top: 460, display: "flex", justifyContent: "center", gap: 40 }}>
+        {chips.map((c, i) => {
+          const k = progress(t, b.ev.chips[i], 0.7, "overshoot");
+          return (
+            <div key={i} style={{ width: w, height: 300, borderRadius: 32, background: b.dark ? "rgba(255,255,255,.06)" : th.card, boxShadow: b.dark ? "0 0 0 1px rgba(255,255,255,.08)" : "0 40px 90px rgba(10,20,15,.12), 0 0 0 1px rgba(10,20,15,.06)", padding: 40, display: "flex", flexDirection: "column", justifyContent: "space-between", opacity: clamp01(k * 2), transform: `translateY(${(1 - k) * 80}px) scale(${0.9 + k * 0.1})` }}>
+              <Check k={progress(t, b.ev.chips[i] + 0.15, 0.4)} size={64} bg={th.pop} fg={th.popInk} />
+              <div style={{ fontFamily: th.display, fontSize: fit(c, 68, w - 80, 0.5), lineHeight: 1.05, color: b.dark ? th.nightInk : th.ink, letterSpacing: "-0.02em" }}>{c}</div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
+const ResultPlayer: React.FC<P> = ({ t, b }) => {
   const th = useFilm();
   const g = progress(t, b.start + 0.05, 0.9, "expo");
   const push = progress(t, b.start + 0.8, b.end - b.start, "smooth");
@@ -611,7 +737,36 @@ export const Carousel: React.FC<P> = ({ t, b }) => {
 };
 
 // ── close: phrases, lockup, call to action ────────────────────────────────
-export const Close: React.FC<P> = ({ t, b }) => {
+export const Close: React.FC<P> = (p) => ((useFilm().look.close ?? "row") === "stack" ? <CloseStack {...p} /> : <CloseRow {...p} />);
+
+/** Phrases stacked, each on its own line, then the lockup and CTA under them. */
+const CloseStack: React.FC<P> = ({ t, b }) => {
+  const th = useFilm();
+  const phrases: string[] = b.phrases;
+  const ev = b.ev;
+  const dark = b.dark;
+  const settle = progress(t, ev.lockup - 0.2, 0.8, "expo");
+  const size = Math.min(130, ...phrases.map((p) => fit(p, 130, 1500)));
+  const top = 420 - (phrases.length - 1) * size * 0.55 - settle * 110;
+  const cta = progress(t, ev.cta, 0.6, "overshoot");
+  const press = clamp01(1 - Math.abs(t - ev.click) / 0.12);
+  return (
+    <>
+      {phrases.map((p, i) => (
+        <div key={i} style={{ position: "absolute", left: 0, right: 0, top: top + i * size * 1.1, display: "flex", justifyContent: "center", transform: `translateY(-50%) scale(${1 - settle * 0.15})` }}>
+          <Words t={t} at={ev.phrases[i]} words={parse(p)} size={size} font={th.display} accentFont={th.display} monoFont={th.mono} color={dark ? th.nightInk : th.ink} accentColor={dark ? th.nightAccent : th.accent} monoBg={th.ink} monoColor={th.pop} italicAccent={th.italic} />
+        </div>
+      ))}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 720, display: "flex", justifyContent: "center", alignItems: "center", gap: 44 }}>
+        {t >= ev.lockup - 0.05 && <Lockup t={t} at={ev.lockup} size={96} onDark={dark} />}
+        <div style={{ transform: `scale(${cta})`, opacity: clamp01(cta * 2), display: "inline-flex", alignItems: "center", gap: 14, fontFamily: th.body, fontWeight: 600, fontSize: 34, color: th.popInk, background: th.pop, borderRadius: 999, padding: "22px 40px", boxShadow: `0 ${18 - press * 12}px 40px ${th.pop}55`, whiteSpace: "nowrap" }}>{b.cta} →</div>
+      </div>
+      {b.url && <div style={{ position: "absolute", left: 0, right: 0, top: 850, textAlign: "center", fontFamily: th.mono, fontSize: 30, color: dark ? th.nightMuted : th.muted, opacity: progress(t, ev.cta + 0.4, 0.5) }}>{b.url}</div>}
+    </>
+  );
+};
+
+const CloseRow: React.FC<P> = ({ t, b }) => {
   const th = useFilm();
   const phrases: string[] = b.phrases;
   const ev = b.ev;

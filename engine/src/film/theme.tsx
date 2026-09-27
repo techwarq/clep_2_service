@@ -7,7 +7,11 @@ import { progress } from "@/kit/motion";
 
 /** Film palette + type, derived from any brand kit. Light scenes sit on the brand's own
  *  background; "dark" scenes (the pain beats) on a near-black cut from its ink. */
+/** Per-film visual variants, chosen by director/filmchat.py (never the previous film's). */
+export type FilmLook = { ground?: "glow" | "flat" | "grid"; headline?: "center" | "left" | "mask" | "type"; reveal?: "flare" | "grid" | "split"; result?: "player" | "cards"; close?: "row" | "stack" };
+
 export type FilmTheme = {
+  look: FilmLook;
   paper: string;
   ink: string;
   muted: string;
@@ -29,7 +33,7 @@ export type FilmTheme = {
 
 const stack = (f: string | undefined, fb: string) => (f ? `'${f}', ${fb}` : fb);
 
-export function makeTheme(brand: BrandT): FilmTheme {
+export function makeTheme(brand: BrandT, look: FilmLook = {}): FilmTheme {
   const c = brand.colors;
   const paper = c.background;
   const ink = c.foreground;
@@ -39,6 +43,7 @@ export function makeTheme(brand: BrandT): FilmTheme {
   const accent = readableOn(paper, [c.accent, c.primary], ink);
   const soft = (x: string, k: number) => mix(x, "#ffffff", k);
   return {
+    look,
     paper,
     ink,
     muted: mix(ink, paper, 0.45),

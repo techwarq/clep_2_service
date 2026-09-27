@@ -43,13 +43,6 @@ MUSIC = {
     "energetic": "energetic modern tech launch, driving synth bass, punchy drums, bright plucks, rising builds, 124 bpm, bold and exciting, no vocals",
 }
 
-DEFAULT_APP = {"name": "Atlas", "title": "Research", "subtitle": "Ask a question — get a sourced brief.",
-               "placeholder": "What do you want to research?", "query": "EV charging market in Europe", "button": "Start Research",
-               "results": [{"tag": "Market brief", "title": "Europe's EV charging market to reach €41B by 2030"},
-                           {"tag": "Industry report", "title": "Fast-charging points grew 48% year over year"},
-                           {"tag": "Competitor scan", "title": "Top operators: Ionity, Allego, Fastned"}]}
-
-
 # ── sanitize ─────────────────────────────────────────────────────────────
 def _s(x, n: int, default: str = "") -> str:
     s = re.sub(r"\s+", " ", str(x if x is not None else default)).strip()
@@ -60,28 +53,62 @@ def _list(x, n: int, item_len: int) -> List[str]:
     return [_s(i, item_len) for i in (x if isinstance(x, list) else []) if _s(i, item_len)][:n]
 
 
-def _app(a) -> dict:
-    a = a if isinstance(a, dict) else {}
-    res = a.get("results") if isinstance(a.get("results"), list) else DEFAULT_APP["results"]
-    return {
-        "name": _s(a.get("name"), 18, DEFAULT_APP["name"]),
-        "title": _s(a.get("title"), 26, DEFAULT_APP["title"]),
-        "subtitle": _s(a.get("subtitle"), 60, DEFAULT_APP["subtitle"]),
-        "placeholder": _s(a.get("placeholder"), 44, DEFAULT_APP["placeholder"]),
-        "query": _s(a.get("query"), 40, DEFAULT_APP["query"]),
-        "button": _s(a.get("button"), 20, DEFAULT_APP["button"]),
-        "results": [{"tag": _s(r.get("tag"), 22, "Result"), "title": _s(r.get("title"), 60)}
-                    for r in res if isinstance(r, dict) and r.get("title")][:3] or DEFAULT_APP["results"],
-    }
+LAYOUTS = ("search", "list", "dashboard", "chat")
+
+
+def _app(a) -> Optional[dict]:
+    """The product's own screen, from the script. Nothing is invented: without a title, an action
+    and at least two real results, there is no app to show and the beat is dropped."""
+    if not isinstance(a, dict):
+        return None
+    res = [{"tag": _s(r.get("tag"), 22), "title": _s(r.get("title"), 60)}
+           for r in (a.get("results") or []) if isinstance(r, dict) and r.get("title")][:3]
+    title, button, query = _s(a.get("title"), 26), _s(a.get("button"), 20), _s(a.get("query"), 48)
+    if not (title and button and query and len(res) >= 2):
+        return None
+    layout = a.get("layout") if a.get("layout") in LAYOUTS else "search"
+    return {"layout": layout, "name": _s(a.get("name"), 18) or title, "title": title, "subtitle": _s(a.get("subtitle"), 60),
+            "placeholder": _s(a.get("placeholder"), 44) or "Search…", "query": query, "button": button,
+            "insight": _s(a.get("insight"), 90), "results": [{**r, "tag": r["tag"] or "New"} for r in res]}
+
+
+def _calm(s: str) -> str:
+    """SITE TAGLINES IN ALL CAPS → Sentence case (on screen they'd shout and overflow)."""
+    letters = [c for c in s if c.isalpha()]
+    if letters and sum(c.isupper() for c in letters) / len(letters) > 0.7:
+        # keep short acronyms (AI, PPM, CRM) as they are; everything else sentence case
+        words = [w if len(re.sub(r"[^A-Za-z]", "", w)) <= 3 else w.lower() for w in re.split(r"(\W+)", s)]
+        out = "".join(words)
+        return out[:1].upper() + out[1:]
+    return s
+
+
+def short_name(brand_doc: Optional[dict]) -> str:
+    """"Factech Automation Solutions Private Limited" → "Factech": the wordmark, else the first word or two."""
+    b = (brand_doc or {}).get("brand") or {}
+    wm = ((b.get("wordmark") or {}).get("text") or "").strip()
+    if wm:
+        return wm
+    name = re.sub(r"\b(inc|llc|ltd|limited|private|pvt|gmbh|corp|corporation|solutions|technologies|labs?)\b\.?", "", b.get("name") or "", flags=re.I)
+    words = name.split()
+    return " ".join(words[:2]) if words else "the product"
 
 
 def sanitize(script: dict, brand_doc: Optional[dict]) -> Tuple[dict, List[str]]:
+    """Clip and check what the model wrote. A beat missing its real content is DROPPED, never
+    filled with stock words: every film must be about this product, in its own words."""
     b = (brand_doc or {}).get("brand") or {}
-    name = b.get("name") or "your product"
+    c = (brand_doc or {}).get("copy") or {}
+    name = short_name(brand_doc)
     url = re.sub(r"^https?://(www\.)?", "", b.get("url") or "").rstrip("/")
+    site_cta = next((x for x in (c.get("buttons") or []) if isinstance(x, str) and 2 < len(x) < 24), "") or "Learn more"
     fixes: List[str] = []
     beats = []
     app_seen = None
+
+    def drop(k, why):
+        fixes.append(f"dropped a {k} beat ({why})")
+
     for raw in script.get("beats") or []:
         if not isinstance(raw, dict) or raw.get("kind") not in KINDS:
             fixes.append(f"dropped a beat of unknown kind {raw.get('kind') if isinstance(raw, dict) else raw!r}")
@@ -92,88 +119,113 @@ def sanitize(script: dict, brand_doc: Optional[dict]) -> Tuple[dict, List[str]]:
             x["dark"] = bool(raw["dark"])
         if k == "headline":
             x["text"] = _s(raw.get("text") or raw.get("vo"), 90)
+            if not x["text"]:
+                drop(k, "no text"); continue
         elif k == "shipped":
-            x.update(title=_s(raw.get("title"), 40, "feat: new feature"), sub=_s(raw.get("sub"), 50, "wants to merge 14 commits into main"),
-                     button=_s(raw.get("button"), 22, "Merge pull request"), done=_s(raw.get("done"), 14, "Merged"),
-                     text=_s(raw.get("text"), 60, "You shipped *the feature.*"))
+            title, button, done = _s(raw.get("title"), 40), _s(raw.get("button"), 22), _s(raw.get("done"), 14)
+            if not (title and button and done):
+                drop(k, "no card content"); continue
+            x.update(title=title, sub=_s(raw.get("sub"), 50), button=button, done=done, text=_s(raw.get("text"), 60))
         elif k == "checklist":
             items = [{"text": _s(i.get("text"), 34), "done": bool(i.get("done"))} for i in (raw.get("items") or []) if isinstance(i, dict) and i.get("text")][:4]
-            if not items or all(i["done"] for i in items):
-                items = (items or [{"text": "Ship the feature", "done": True}])[:3] + [{"text": "Record the demo", "done": False}]
-            x.update(text=_s(raw.get("text"), 70, "Still on your *to-do list.*"), items=items, tag=_s(raw.get("tag"), 28, "overdue"))
+            if len(items) < 2 or all(i["done"] for i in items):
+                drop(k, "needs 2–4 items with one left undone"); continue
+            x.update(text=_s(raw.get("text"), 70), items=items, tag=_s(raw.get("tag"), 28))
         elif k == "grind":
-            x.update(text=_s(raw.get("text"), 50), words=_list(raw.get("words"), 6, 12) or ["Record.", "Retake.", "Zoom.", "Crop.", "Export."])
+            words = _list(raw.get("words"), 6, 12)
+            if len(words) < 3:
+                drop(k, "needs 3–6 words"); continue
+            x.update(text=_s(raw.get("text"), 50), words=words)
         elif k == "loop":
-            x.update(text=_s(raw.get("text"), 40, "You do it *all again.*"), ring=_list(raw.get("ring"), 6, 12) or ["Record", "Retake", "Zoom", "Crop", "Export"])
+            ring = _list(raw.get("ring"), 6, 12)
+            text = _s(raw.get("text"), 40)
+            if len(ring) < 3 or not text:
+                drop(k, "needs ring words and a line"); continue
+            x.update(text=text, ring=ring)
         elif k == "code":
             lines = [str(l)[:60] for l in (raw.get("lines") or []) if isinstance(l, str)][:9]
-            if not lines:
-                lines = ["export function Feature() {", "  return (", "    <button", '      data-clep="feature"', "      onClick={run}>", "      Try it", "    </button>", "  )", "}"]
             hl = raw.get("highlight")
-            x.update(text=_s(raw.get("text"), 60, "Your code *already knows.*"), file=_s(raw.get("file"), 30, "feature.tsx"), lines=lines,
+            if len(lines) < 3:
+                drop(k, "no code"); continue
+            x.update(text=_s(raw.get("text"), 60), file=_s(raw.get("file"), 30) or "index.ts", lines=lines,
                      highlight=hl if isinstance(hl, int) and 0 <= hl < len(lines) else min(3, len(lines) - 1))
         elif k == "reveal":
-            x.update(tagline=_s(raw.get("tagline") or b.get("tagline"), 60, ""), pill=_s(raw.get("pill"), 36))
+            x.update(tagline=_calm(_s(raw.get("tagline") or b.get("tagline"), 70)), pill=_s(raw.get("pill"), 36))
         elif k in ("prompt", "app"):
-            app = _app(raw.get("app") or app_seen)
+            app = _app(raw.get("app")) or app_seen
+            if not app:
+                drop(k, "no product screen described"); continue
             app_seen = app
             x["app"] = app
             if k == "prompt":
-                steps = [{"title": _s(s.get("title"), 34), "sub": _s(s.get("sub"), 44)} for s in (raw.get("steps") or []) if isinstance(s, dict) and s.get("title")][:4]
-                x.update(agent=_s(raw.get("agent"), 20, "Claude Code"), prompt=_s(raw.get("prompt"), 60, f"make a demo of {name}"),
-                         steps=steps or [{"title": "Reading your code", "sub": "src/"}, {"title": "Found the feature", "sub": ""},
-                                         {"title": "Running it in a real browser", "sub": "1920×1080 · 60fps"}, {"title": "Directing the take", "sub": "clicks · keystrokes · zooms"}])
+                steps = [{"title": _s(s_.get("title"), 34), "sub": _s(s_.get("sub"), 44)} for s_ in (raw.get("steps") or []) if isinstance(s_, dict) and s_.get("title")][:4]
+                agent, prompt = _s(raw.get("agent"), 20), _s(raw.get("prompt"), 70)
+                if len(steps) < 2 or not agent or not prompt:
+                    x = {"kind": "app", "vo": x["vo"], "app": app, "text": ""}  # no agent story → just show the product working
+                else:
+                    x.update(agent=agent, prompt=prompt, steps=steps)
             else:
                 x["text"] = _s(raw.get("text"), 60)
         elif k == "screenshot":
             shots = b.get("screenshots") or []
             src = raw.get("src") if raw.get("src") in shots else (shots[0] if shots else None)
             if not src:
-                fixes.append("no screenshot to show, so that beat became a headline")
-                x = {"kind": "headline", "vo": x["vo"], "text": _s(raw.get("text") or x["vo"], 90)}
+                if raw.get("text") or x["vo"]:
+                    x = {"kind": "headline", "vo": x["vo"], "text": _s(raw.get("text") or x["vo"], 90)}
+                    fixes.append("no screenshot to show, so that beat became a headline")
+                else:
+                    drop(k, "no screenshot"); continue
             else:
                 x.update(src=src, text=_s(raw.get("text"), 60), callout=_s(raw.get("callout"), 30))
         elif k == "result":
-            x.update(text=_s(raw.get("text"), 50, "A *finished* film."), file=_s(raw.get("file"), 30, "demo.mp4"),
-                     chips=_list(raw.get("chips"), 3, 14) or ["Edited", "Graded", "1080p60"])
+            chips = _list(raw.get("chips"), 3, 28)
+            text = _s(raw.get("text"), 50)
+            if len(chips) < 2 or not text:
+                drop(k, "needs a line and 2–3 outcome chips"); continue
+            x.update(text=text, file=_s(raw.get("file"), 30), chips=chips)
             if app_seen:
                 x["app"] = app_seen
         elif k == "carousel":
-            x.update(text=_s(raw.get("text"), 50, "Every feature. *One command.*"), items=_list(raw.get("items"), 4, 22) or ["onboarding", "dashboard", "checkout"])
+            items = _list(raw.get("items"), 4, 22)
+            if len(items) < 3:
+                drop(k, "needs 3–4 items"); continue
+            x.update(text=_s(raw.get("text"), 50), items=items)
         elif k == "close":
-            x.update(phrases=_list(raw.get("phrases"), 3, 18) or [f"{name}."], cta=_s(raw.get("cta"), 24, "Try it free"),
-                     url=_s(raw.get("url"), 40, url))
+            x.update(phrases=_list(raw.get("phrases"), 3, 34) or [f"{name}."], cta=_s(raw.get("cta"), 24) or site_cta,
+                     url=_s(raw.get("url"), 40) or url)
         beats.append(x)
     if not any(x["kind"] == "reveal" for x in beats):
-        beats.insert(max(0, min(len(beats), len(beats) // 2)), {"kind": "reveal", "vo": f"Meet {name}.", "tagline": _s(b.get("tagline"), 60), "pill": ""})
+        beats.insert(max(0, min(len(beats), len(beats) // 2)), {"kind": "reveal", "vo": f"Meet {name}.", "tagline": _calm(_s(b.get("tagline"), 70)), "pill": ""})
         fixes.append("added the product reveal")
     if not beats or beats[-1]["kind"] != "close":
-        beats = [x for x in beats if x["kind"] != "close"] + [{"kind": "close", "vo": "", "phrases": [f"{name}."], "cta": "Try it free", "url": url}]
+        beats = [x for x in beats if x["kind"] != "close"] + [{"kind": "close", "vo": "", "phrases": [f"{name}."], "cta": site_cta, "url": url}]
         fixes.append("ended on the sign-off")
     beats = beats[:16]
     mood = script.get("mood") if script.get("mood") in MUSIC else "normal"
     return {"title": _s(script.get("title"), 60, f"{name} launch"), "mood": mood, "music": _s(script.get("music"), 300),
-            "beats": beats}, fixes
+            "story": _s(script.get("story"), 40), "beats": beats,
+            **{k: script[k] for k in ("brief", "look") if isinstance(script.get(k), dict)}}, fixes
 
 
 def seed(brand_doc: Optional[dict]) -> dict:
-    """A complete film from the site alone — ships when the model fails."""
+    """Fallback when the model fails: only what the site itself says — its headline, the reveal,
+    a real screenshot, its own CTA. No invented story."""
     b = (brand_doc or {}).get("brand") or {}
     c = (brand_doc or {}).get("copy") or {}
-    name = b.get("name") or "It"
+    name = short_name(brand_doc)
+    h1 = c.get("h1")
+    h1 = (h1[0] if isinstance(h1, list) and h1 else h1) or b.get("tagline") or ""
     tag = b.get("tagline") or c.get("description") or ""
-    h1 = (c.get("h1") or [tag])[0] if isinstance(c.get("h1"), list) else c.get("h1") or tag
     shots = b.get("screenshots") or []
-    beats = [
-        {"kind": "headline", "vo": "Every product has a moment where it has to show itself.", "text": "Every product has a *moment.*"},
-        {"kind": "checklist", "vo": "The feature works. The launch is tomorrow. The demo still doesn't exist.",
-         "text": "Still on your *to-do list.*", "items": [{"text": "Ship the feature", "done": True}, {"text": "Write the changelog", "done": True}, {"text": "Record the demo", "done": False}]},
-        {"kind": "reveal", "vo": f"Meet {name}. {tag}".strip(), "tagline": tag},
-    ]
+    beats = []
+    if h1:
+        beats.append({"kind": "headline", "vo": _s(h1, 140), "text": _s(h1, 60)})
+    beats.append({"kind": "reveal", "vo": f"Meet {name}. {tag}".strip()[:170], "tagline": tag})
     if shots:
-        beats.append({"kind": "screenshot", "vo": _s(h1, 120) or f"This is {name}.", "src": shots[0], "text": _s(h1, 60)})
-    beats.append({"kind": "close", "vo": f"{name}. Try it today.", "phrases": [f"{name}."], "cta": "Try it free"})
+        beats.append({"kind": "screenshot", "vo": _s(c.get("description") or tag, 150), "src": shots[0], "text": ""})
+    beats.append({"kind": "close", "vo": f"{name}.", "phrases": [f"{name}."]})
     return {"title": f"{name} launch", "mood": "normal", "beats": beats}
+
 
 
 # ── plan ─────────────────────────────────────────────────────────────────
@@ -338,7 +390,7 @@ def build_props(pr: Project, script: dict, controls: dict, estimate: bool = Fals
     clips = _voice_clips(pr, script, voice, estimate)
     beats, sfx, total = plan(script, clips)
     props = {"brand": brand_doc["brand"], "fps": int(controls.get("fps") or FPS), "width": 1920, "height": 1080,
-             "duration": total, "beats": beats}
+             "duration": total, "beats": beats, "look": script.get("look") or {}}
     voice_track = [(Path(c[0]), b["vo"]["start"]) for c, b in zip(clips, beats) if c and c[0]]
     return props, sfx, voice_track
 
