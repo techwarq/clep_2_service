@@ -21,16 +21,16 @@ STORIES = [
               "after: the same task done in the product (app) → result chips comparing before and after → close.",
      "voice": "contrast; short parallel sentences (\"Before, … Now, …\")."},
     {"id": "manifesto", "name": "A belief",
-     "shape": "3–4 bold headlines stating a belief about how this work should be → reveal → one proof of the belief "
-              "(app or screenshot) → a final belief line → close. Few UI beats; the type carries it.",
+     "shape": "A bold belief (headline) → the world that proves it wrong (grind or checklist) → a second belief (headline) → "
+              "reveal → the product living that belief (app or screenshot) → the outcome (result) → close.",
      "voice": "declarative, confident, a little defiant."},
     {"id": "demo-first", "name": "Product first",
      "shape": "Open on the product already working (app), with no setup → a headline naming what just happened → reveal → "
               "a second, different use (app or screenshot) → carousel of other things it handles → close.",
      "voice": "fast, crisp, show-don't-tell."},
     {"id": "question", "name": "What if",
-     "shape": "A provocative question as the hook (headline) → 1–2 quick \"imagine…\" headlines → reveal → the product "
-              "answering the question live (app) → result → close.",
+     "shape": "A provocative question as the hook (headline) → the reality today (checklist or grind) → one \"imagine…\" "
+              "headline → reveal → the product answering the question live (app) → result → close.",
      "voice": "curious, conversational, inviting."},
     {"id": "customer", "name": "In their words",
      "shape": "First-person narrator who IS the user (\"I run three buildings…\") → their day and their pain (checklist "

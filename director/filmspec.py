@@ -194,6 +194,7 @@ def sanitize(script: dict, brand_doc: Optional[dict]) -> Tuple[dict, List[str]]:
             x.update(phrases=_list(raw.get("phrases"), 3, 34) or [f"{name}."], cta=_s(raw.get("cta"), 24) or site_cta,
                      url=_s(raw.get("url"), 40) or url)
         beats.append(x)
+    beats = _less_text(beats, fixes)
     if not any(x["kind"] == "reveal" for x in beats):
         beats.insert(max(0, min(len(beats), len(beats) // 2)), {"kind": "reveal", "vo": f"Meet {name}.", "tagline": _calm(_s(b.get("tagline"), 70)), "pill": ""})
         fixes.append("added the product reveal")
@@ -205,6 +206,21 @@ def sanitize(script: dict, brand_doc: Optional[dict]) -> Tuple[dict, List[str]]:
     return {"title": _s(script.get("title"), 60, f"{name} launch"), "mood": mood, "music": _s(script.get("music"), 300),
             "story": _s(script.get("story"), 40), "beats": beats,
             **{k: script[k] for k in ("brief", "look") if isinstance(script.get(k), dict)}}, fixes
+
+
+def _less_text(beats: list, fixes: list) -> list:
+    """Keep the film visual: never 3 plain headlines in a row and at most 3 overall. Extra headlines
+    are merged into the one before them (their lines are still spoken), so no words are lost."""
+    out: list = []
+    for x in beats:
+        prev2 = [y["kind"] for y in out[-2:]]
+        too_many = sum(y["kind"] == "headline" for y in out) >= 3
+        if x["kind"] == "headline" and out and out[-1]["kind"] == "headline" and (prev2 == ["headline", "headline"] or too_many):
+            out[-1] = {**out[-1], "vo": f"{out[-1]['vo']} {x['vo']}".strip()[:220]}
+            fixes.append("merged back-to-back headlines to keep the film visual")
+            continue
+        out.append(x)
+    return out
 
 
 def seed(brand_doc: Optional[dict]) -> dict:
@@ -395,6 +411,19 @@ def build_props(pr: Project, script: dict, controls: dict, estimate: bool = Fals
     return props, sfx, voice_track
 
 
+def cpu_limit() -> int:
+    """CPUs this container may actually use. Cloud Run reports the host's cores via os.cpu_count(),
+    but the cgroup quota (cpu.max) is what we get; one Chrome worker per real CPU."""
+    import os
+    try:
+        quota, period = Path("/sys/fs/cgroup/cpu.max").read_text().split()
+        if quota != "max":
+            return max(1, int(int(quota) / int(period)))
+    except Exception:
+        pass
+    return os.cpu_count() or 2
+
+
 def render(pr: Project, script: dict, controls: dict, name: str, progress=None) -> Path:
     from . import engine
     from .film import KIT
@@ -422,7 +451,7 @@ def render(pr: Project, script: dict, controls: dict, name: str, progress=None) 
     serve = engine.bundle(pr)
     silent = tmp / f"{name}.silent.mp4"
     engine._npx(["remotion", "render", str(serve), "Film", str(silent), f"--props={pfile}", "--codec=h264", "--crf=17",
-                 "--pixel-format=yuv420p", f"--concurrency={controls.get('concurrency') or __import__('os').cpu_count() or 2}", "--log=error"])
+                 "--pixel-format=yuv420p", f"--concurrency={controls.get('concurrency') or cpu_limit()}", "--log=error"])
     out = pr.dir / "renders" / f"{name}.mp4"
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(silent), "-i", str(mixed), "-map", "0:v", "-map", "1:a", "-c:v", "copy",

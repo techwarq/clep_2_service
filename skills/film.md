@@ -19,6 +19,8 @@ For every film you receive:
 - Every UI beat shows this product's real workflow (the brief's `hero_flow` and `screen`), with
   realistic, specific content.
 - Use 6–10 beats. The product is named once, at the reveal, and again at the close.
+- Keep it visual. Use at most 3 plain `headline` beats and never 2 in a row, with at least 2 beats that show
+  UI (app, checklist, shipped, code, screenshot, result, carousel, grind). Words alone don't make a film.
 
 ## Voice (`vo`)
 - The narration style comes from the story shape. Keep lines short and spoken, and fragments are fine.
