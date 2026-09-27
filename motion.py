@@ -234,6 +234,37 @@ def cmd_publish_examples(a):
                 print(f"[examples] {d.name}/{f}")
 
 
+def cmd_make(a):
+    """URL + request → finished film, end to end, with per-step timings (smoke test / benchmark)."""
+    import os
+    import re
+    import time
+    from director import brand, chat, filmspec, store
+    from director.paths import Project
+    t0 = time.time()
+    marks = []
+
+    def mark(step):
+        marks.append((step, round(time.time() - t0, 1)))
+        print(f"[make] {marks[-1][1]:7.1f}s  {step}", flush=True)
+
+    name = a.project or re.sub(r"[^a-z0-9]+", "-", re.sub(r"^https?://(www\.)?", "", a.url).lower()).strip("-")[:40]
+    pr = Project(name).ensure()
+    doc = brand.extract(a.url, pr)
+    mark("brand extracted")
+    r = chat.turn(a.request, doc, None)
+    mark(f"script written ({len(r['values']['beats'])} beats, voice {r['controls'].get('voice')})")
+    print(r["reply"])
+    mp4 = filmspec.render(pr, r["values"], {**r["controls"], **({"fps": a.fps} if a.fps else {})}, a.name,
+                          progress=lambda s, _p: mark(s))
+    mark("rendered")
+    key = store.put_file(mp4, f"outputs/{a.name}.mp4")
+    mark(f"uploaded → {key}")
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(mp4)],
+                         capture_output=True, text=True).stdout.strip()
+    print(f"[make] done: {out}s of video in {marks[-1][1]}s · {os.cpu_count()} CPUs · {mp4.stat().st_size / 1e6:.1f} MB")
+
+
 def cmd_film(a):
     from director import film
     film.run(a.video, a.step)
@@ -316,6 +347,10 @@ def main():
     p = sub.add_parser("film", help="hand-built film: voice → music → mix → render (engine/src/videos/<video>/timeline.json)")
     p.add_argument("video"); p.add_argument("step", choices=["voice", "music", "mix", "render", "preview", "all"])
     p.set_defaults(fn=cmd_film)
+    p = sub.add_parser("make", help="url + request → finished film end to end, with timings (smoke test / benchmark)")
+    p.add_argument("url"); p.add_argument("request"); p.add_argument("--project"); p.add_argument("--name", default="make")
+    p.add_argument("--fps", type=int)
+    p.set_defaults(fn=cmd_make)
     p = sub.add_parser("voices", help="list narration voices (--publish makes previews, --push uploads them to R2)")
     p.add_argument("--publish", action="store_true"); p.add_argument("--push", action="store_true")
     p.set_defaults(fn=cmd_voices)
