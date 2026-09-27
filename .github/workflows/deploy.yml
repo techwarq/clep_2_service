@@ -1,0 +1,98 @@
+name: CI / deploy motion
+
+# check  — every push and PR: Python compiles, engine typechecks.
+# deploy — pushes to main only: build ONE image (Cloud Build → Artifact Registry,
+#          tagged with the commit SHA), then roll it to the service and both jobs.
+#
+#   clep-motion-service   Cloud Run service: chat / templates / preview / voices (fast, synchronous)
+#   clep-motion-job       Cloud Run job: renders + brand extraction, one execution per job
+#   clep-motion-job-fast  same image, more CPU (studio plan)
+#
+# Auth is Workload Identity Federation (no stored keys): GitHub's OIDC token is
+# exchanged for short-lived credentials via clep-2-service-provider in the
+# github-pool pool (doctosheet-be), which only accepts techwarq/clep_2_service.
+# Secrets are Secret Manager references — no values ever appear here or in logs.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: motion-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  PROJECT: doctosheet-be
+  REGION: us-central1
+  IMAGE: us-central1-docker.pkg.dev/doctosheet-be/cloud-run-source-deploy/clep-motion
+  RUNTIME_SA: clep-motion-runtime@doctosheet-be.iam.gserviceaccount.com
+  ENV_VARS: CLEP_WORKER_URL=https://api.clep.abstraklabs.com,R2_BUCKET=clep-outputs,R2_ACCOUNT_ID=de200de67e13aa37cef124949ada3336
+  SECRETS: CLEP_INTERNAL_SECRET=clep-internal-secret:latest,R2_ACCESS_KEY_ID=r2-access-key-id:latest,R2_SECRET_ACCESS_KEY=r2-secret-access-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest,FAL_KEY=fal-key:latest
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python compiles
+        run: python -m compileall -q director motion.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: engine/package-lock.json
+      - name: Engine typechecks
+        working-directory: engine
+        run: npm ci --no-audit --no-fund && npx tsc --noEmit
+
+  deploy:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-motion
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/919279481036/locations/global/workloadIdentityPools/github-pool/providers/clep-2-service-provider
+          service_account: github-deployer@doctosheet-be.iam.gserviceaccount.com
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build image
+        run: gcloud builds submit . --project $PROJECT --region $REGION --tag $IMAGE:${{ github.sha }} --timeout 40m --quiet
+
+      - name: Deploy service
+        run: |
+          gcloud run deploy clep-motion-service --image $IMAGE:${{ github.sha }} \
+            --project $PROJECT --region $REGION --service-account $RUNTIME_SA --allow-unauthenticated \
+            --cpu 2 --memory 4Gi --concurrency 4 --min-instances 0 --max-instances 20 --timeout 300 \
+            --set-env-vars $ENV_VARS,MOTION_PREVIEW_SLOTS=2 --set-secrets $SECRETS --quiet
+
+      - name: Deploy jobs
+        run: |
+          for J in "clep-motion-job 4 8Gi" "clep-motion-job-fast 8 16Gi"; do
+            set -- $J
+            gcloud run jobs deploy $1 --image $IMAGE:${{ github.sha }} \
+              --project $PROJECT --region $REGION --service-account $RUNTIME_SA \
+              --cpu $2 --memory $3 --task-timeout 1800 --max-retries 0 --tasks 1 \
+              --command python3 --args motion.py,job \
+              --set-env-vars $ENV_VARS --set-secrets $SECRETS --quiet
+          done
+
+      - name: Smoke test
+        run: |
+          URL=$(gcloud run services describe clep-motion-service --project $PROJECT --region $REGION --format 'value(status.url)')
+          curl -fsS "$URL/health"
